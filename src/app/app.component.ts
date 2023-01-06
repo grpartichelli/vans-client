@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component} from '@angular/core';
+import {ExampleService} from "../service/example.service";
 
 @Component({
   selector: 'app-root',
@@ -7,11 +7,10 @@ import {HttpClient} from "@angular/common/http";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly exampleService: ExampleService) {}
 
   public request() {
-    this.http.get('https://pokeapi.co/api/v2/pokemon/ditto')
-      .toPromise()
+    this.exampleService.find()
       .then(it => console.log(it))
   }
 }
