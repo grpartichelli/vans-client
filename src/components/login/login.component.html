@@ -1,0 +1,41 @@
+<div class="login">
+  <mat-card class="login__card">
+    <mat-card-content>
+      <form #loginForm="ngForm" (ngSubmit)="loginForm.valid && onSubmit()">
+        <h2>{{isRegistration ? "Crie sua conta" : "Acesse sua conta" }}</h2>
+        <mat-error *ngIf="!loginValid">
+          Usuário ou senha inválidos
+        </mat-error>
+        <mat-error *ngIf="!registrationValid">
+          Email já cadastrado
+        </mat-error>
+        <mat-form-field class="login__field">
+          <input matInput placeholder="Email" [(ngModel)]="username" name="username" required>
+          <mat-error>
+            Por favor insira um email válido
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="login__field">
+          <input matInput type="password" placeholder="Senha" [(ngModel)]="password" name="password" required>
+          <mat-error>
+            Por favor insira uma senha
+          </mat-error>
+        </mat-form-field>
+
+        <div class="login__actions">
+          <a href="/" class="login__forgot-password"  *ngIf="!isRegistration" >Esqueceu sua senha?</a>
+          <button class="login__button" mat-raised-button color="primary" *ngIf="!isRegistration">Entrar</button>
+          <p class="login__divider" *ngIf="!isRegistration">ou</p>
+
+          <button type="button" class="login__button"  *ngIf="!isRegistration" (click)="setIsRegistration(true)" mat-stroked-button color="primary">
+            Nova conta
+          </button>
+
+          <button class="login__registration-button"  *ngIf="isRegistration" mat-raised-button color="primary">
+            Registrar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
