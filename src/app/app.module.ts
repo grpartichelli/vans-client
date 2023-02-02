@@ -15,13 +15,18 @@ import {FormsModule} from "@angular/forms";
 import {ToolbarComponent} from "../components/toolbar/toolbar.component";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {BottomBar} from "../components/bottom-bar/bottom-bar.component";
+import {StudentsComponent} from "../components/students/students.component";
+import {RoutesComponent} from "../components/routes/routes.component";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ToolbarComponent,
-    BottomBar
+    BottomBar,
+    StudentsComponent,
+    RoutesComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +40,7 @@ import {BottomBar} from "../components/bottom-bar/bottom-bar.component";
     MatInputModule,
     FormsModule,
     MatToolbarModule,
+    MatMenuModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
