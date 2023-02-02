@@ -9,8 +9,5 @@ import {ExampleService} from "../service/example.service";
 export class AppComponent {
   constructor(private readonly exampleService: ExampleService) {}
 
-  public request() {
-    this.exampleService.find()
-      .then(it => console.log(it))
-  }
+
 }
