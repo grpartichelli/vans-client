@@ -20,6 +20,7 @@ import {RoutesComponent} from "../components/routes/routes.component";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
 import {StudentsDialogComponent} from "../components/students-dialog/students-dialog.component";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import {StudentsDialogComponent} from "../components/students-dialog/students-di
     MatToolbarModule,
     MatMenuModule,
     MatDialogModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

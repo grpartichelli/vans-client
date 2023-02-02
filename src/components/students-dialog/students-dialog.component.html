@@ -1,61 +1,83 @@
 <form #studentFrom="ngForm" class="students-dialog" (ngSubmit)="studentFrom.valid && onSubmit()">
-  <h2>Informações do estudante</h2>
-  <mat-form-field>
-    <input matInput placeholder="Nome" [(ngModel)]="student.name" required>
-    <mat-error>
-      Insira o nome do estudante
-    </mat-error>
-  </mat-form-field>
+  <h2 class="students-dialog__title">Informações do estudante</h2>
 
-  <mat-form-field>
-    <input matInput placeholder="Turno" [(ngModel)]="student.shift" required>
-    <mat-error>
-      Insira o turno
-    </mat-error>
-  </mat-form-field>
+  <div class="students-dialog__body">
+    <mat-form-field class="students-dialog__field">
+      <input matInput placeholder="Nome" name="name" [(ngModel)]="student.name" type="text" pattern="[a-z A-Z]*" required>
+      <mat-error>
+        Insira o nome do estudante
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Direction" [(ngModel)]="student.direction" required>
-    <mat-error>
-      Preenchar esse campo
-    </mat-error>
-  </mat-form-field>
+    <mat-form-field class="students-dialog__field">
+      <input matInput placeholder="Endereço" name="address" type="text"  [(ngModel)]="student.address" required>
+      <mat-error>
+        Insira o endereço
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Endereço" [(ngModel)]="student.address" required>
-    <mat-error>
-      Insira o endereço
-    </mat-error>
-  </mat-form-field>
+    <mat-form-field class="students-dialog__field">
+      <input matInput placeholder="Nome do responsável"  type="text"  pattern="[a-z A-Z]*" name="legalGuardian" [(ngModel)]="student.legalGuardianName"
+             required>
+      <mat-error>
+        Insira o nome do responsável
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Responsável" [(ngModel)]="student.legalGuardianName" required>
-    <mat-error>
-      Insira o nome do responsável
-    </mat-error>
-  </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Telefone" [(ngModel)]="student.phone" required>
-    <mat-error>
-      Insira o telefone do responsável
-    </mat-error>
-  </mat-form-field>
+    <div class="students-dialog__double">
+      <mat-form-field class="students-dialog__field--double">
+        <mat-label>Turno</mat-label>
+        <mat-select [(ngModel)]="student.shift" name="shift">
+          <mat-option
+            *ngFor="let shift of shifts"
 
-  <mat-form-field>
-    <input matInput placeholder="Email" [(ngModel)]="student.email" required>
-    <mat-error>
-      Insira o email do responsável
-    </mat-error>
-  </mat-form-field>
+            [value]="shift.key"
 
-  <mat-form-field>
-    <input matInput placeholder="Pagamento" [(ngModel)]="student.paymentAmount" required>
-    <mat-error>
-      Quantidade a pagar
-    </mat-error>
-  </mat-form-field>
+          >
+            {{shift.view}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="students-dialog__field--double">
+        <mat-label>Horário</mat-label>
+        <mat-select [(ngModel)]="student.direction" name="direction">
+          <mat-option
+            *ngFor="let direction of directions"
+            [value]="direction.key"
 
+          >
+            {{direction.view}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <mat-form-field class="students-dialog__field">
+      <input matInput type="email" placeholder="Email" name="email" [(ngModel)]="student.email" email required>
+      <mat-error>
+        Insira o email do responsável
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="students-dialog__field">
+      <input matInput placeholder="Telefone" type="number" name="phone" [(ngModel)]="student.phone" number required>
+      <mat-error>
+        Insira o telefone do responsável
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="students-dialog__field">
+      <input matInput placeholder="Valor a pagar" name="payment" type="number" [(ngModel)]="student.paymentAmount"
+             required>
+      <mat-error>
+        Quantidade a pagar
+      </mat-error>
+    </mat-form-field>
+
+  </div>
 
   <div class="students-dialog__buttons">
     <button mat-stroked-button color="primary" class="students-dialog__button" (click)="close()">

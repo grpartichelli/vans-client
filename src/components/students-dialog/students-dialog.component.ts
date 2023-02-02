@@ -1,6 +1,9 @@
 import {Component, Input} from '@angular/core';
 import {Student} from "../../models/student.model";
+import {ShiftType} from "../../models/shiftType.model";
 import {MatDialogRef} from "@angular/material/dialog";
+import {DirectionType} from "../../models/directionType.model";
+import {StudentService} from "../../service/student.service";
 
 @Component({
   selector: 'app-students-dialog',
@@ -9,16 +12,42 @@ import {MatDialogRef} from "@angular/material/dialog";
 })
 export class StudentsDialogComponent {
 
-  constructor(public dialogRef: MatDialogRef<StudentsDialogComponent>){}
+
+  constructor(public dialogRef: MatDialogRef<StudentsDialogComponent, Student>,
+              private readonly  studentService: StudentService) {
+  }
 
   @Input() student: Student = new Student();
+  public shifts = [{
+    key: ShiftType.MORNING,
+    view: "Manhã"
+  }, {
+    key: ShiftType.AFTERNOON,
+    view: "Tarde"
+  },];
 
-  public close():void {
+  public directions = [
+    {
+      key: DirectionType.BOTH,
+      view: "Ida e volta"
+    }, {
+      key: DirectionType.TO,
+      view: "Somente ida"
+    }, {
+      key: DirectionType.BACK,
+      view: "Somenta volta"
+    },
+  ];
+
+
+  public close(): void {
     this.dialogRef.close();
-
   }
 
   public onSubmit(): void {
-
+    this.studentService.save(this.student)
+      .then(() => {
+        this.dialogRef.close(this.student)
+      })
   }
 }
