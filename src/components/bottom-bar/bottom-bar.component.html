@@ -1,0 +1,15 @@
+<mat-toolbar class="bottom-bar" color="primary">
+  <button *ngIf="isStudentsRoute" class="bottom-bar__button" color="accent" mat-icon-button >
+    <mat-icon>person</mat-icon>
+  </button>
+  <button *ngIf="!isStudentsRoute" class="bottom-bar__button" (click)="goToStudents()" mat-icon-button >
+    <mat-icon >person</mat-icon>
+  </button>
+  <button *ngIf="isRoutesRoute"  class="bottom-bar__button" color="accent" mat-icon-button >
+    <mat-icon >airport_shuttle</mat-icon>
+  </button>
+  <button *ngIf="!isRoutesRoute" class="bottom-bar__button"  mat-icon-button (click)="goToRoutes()" >
+    <mat-icon >airport_shuttle</mat-icon>
+  </button>
+</mat-toolbar>
+

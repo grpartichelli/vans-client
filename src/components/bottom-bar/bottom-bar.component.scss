@@ -1,0 +1,8 @@
+.bottom-bar {
+  display: flex;
+  justify-content: space-around;
+
+  &__button {
+    flex: 1;
+  }
+}

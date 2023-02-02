@@ -34,7 +34,7 @@ export class LoginComponent {
     this.loginService.register(new User(this.username, this.password))
       .then(() => {
         this.registrationValid = true;
-        this.router.navigate(['home']).then();
+        this.router.navigate(['students']).then();
       })
       .catch(() => {
           this.registrationValid = false;
@@ -45,7 +45,7 @@ export class LoginComponent {
   public login(): void {
     this.loginService.login(new User(this.username, this.password))
       .then(() => {
-        this.router.navigate(['home']).then();
+        this.router.navigate(['students']).then();
         this.loginValid = true
       })
       .catch(() => {

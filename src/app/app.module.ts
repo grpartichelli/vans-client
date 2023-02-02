@@ -12,11 +12,16 @@ import {LoginComponent} from "../components/login/login.component";
 import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from "@angular/forms";
+import {ToolbarComponent} from "../components/toolbar/toolbar.component";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {BottomBar} from "../components/bottom-bar/bottom-bar.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ToolbarComponent,
+    BottomBar
   ],
   imports: [
     BrowserModule,
@@ -29,6 +34,7 @@ import {FormsModule} from "@angular/forms";
     MatCardModule,
     MatInputModule,
     FormsModule,
+    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
