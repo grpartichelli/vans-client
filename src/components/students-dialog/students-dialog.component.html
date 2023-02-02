@@ -1,34 +1,69 @@
-<mat-dialog-container>
-  <form #studentFrom="ngForm" (ngSubmit)="studentFrom.valid && onSubmit()">
-    <h2>Crie sua conta</h2>
-    <mat-error >
-      Usuário ou senha inválidos
+<form #studentFrom="ngForm" class="students-dialog" (ngSubmit)="studentFrom.valid && onSubmit()">
+  <h2>Informações do estudante</h2>
+  <mat-form-field>
+    <input matInput placeholder="Nome" [(ngModel)]="student.name" required>
+    <mat-error>
+      Insira o nome do estudante
     </mat-error>
-    <mat-form-field class="login__field">
-      <input matInput placeholder="Email" [(ngModel)]="username" name="username" required>
-      <mat-error>
-        Por favor insira um email válido
-      </mat-error>
-    </mat-form-field>
-    <mat-form-field class="login__field">
-      <input matInput type="password" placeholder="Senha" [(ngModel)]="password" name="password" required>
-      <mat-error>
-        Por favor insira uma senha
-      </mat-error>
-    </mat-form-field>
+  </mat-form-field>
 
-    <div class="login__actions">
-      <a href="/" class="login__forgot-password"  *ngIf="!isRegistration" >Esqueceu sua senha?</a>
-      <button class="login__button" mat-raised-button color="primary" *ngIf="!isRegistration">Entrar</button>
-      <p class="login__divider" *ngIf="!isRegistration">ou</p>
+  <mat-form-field>
+    <input matInput placeholder="Turno" [(ngModel)]="student.shift" required>
+    <mat-error>
+      Insira o turno
+    </mat-error>
+  </mat-form-field>
 
-      <button type="button" class="login__button"  *ngIf="!isRegistration" (click)="setIsRegistration(true)" mat-stroked-button color="primary">
-        Nova conta
-      </button>
+  <mat-form-field>
+    <input matInput placeholder="Direction" [(ngModel)]="student.direction" required>
+    <mat-error>
+      Preenchar esse campo
+    </mat-error>
+  </mat-form-field>
 
-      <button class="login__registration-button"  *ngIf="isRegistration" mat-raised-button color="primary">
-        Registrar
-      </button>
-    </div>
-  </form>
-</mat-dialog-container>
+  <mat-form-field>
+    <input matInput placeholder="Endereço" [(ngModel)]="student.address" required>
+    <mat-error>
+      Insira o endereço
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Responsável" [(ngModel)]="student.legalGuardianName" required>
+    <mat-error>
+      Insira o nome do responsável
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Telefone" [(ngModel)]="student.phone" required>
+    <mat-error>
+      Insira o telefone do responsável
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Email" [(ngModel)]="student.email" required>
+    <mat-error>
+      Insira o email do responsável
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Pagamento" [(ngModel)]="student.paymentAmount" required>
+    <mat-error>
+      Quantidade a pagar
+    </mat-error>
+  </mat-form-field>
+
+
+  <div class="students-dialog__buttons">
+    <button mat-stroked-button color="primary" class="students-dialog__button" (click)="close()">
+      Cancelar
+    </button>
+    <button mat-raised-button color="primary" class="students-dialog__button">
+      Salvar
+    </button>
+  </div>
+</form>
+

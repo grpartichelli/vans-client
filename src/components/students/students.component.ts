@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
+import {StudentsDialogComponent} from "../students-dialog/students-dialog.component";
 
 @Component({
   selector: 'app-students',
@@ -16,8 +17,14 @@ export class StudentsComponent {
 
   }
 
+
   public openEditDialog() {
-    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+    const dialogRef = this.dialog.open(StudentsDialogComponent, {
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%'
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       this.updateList()

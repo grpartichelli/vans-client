@@ -1,0 +1,16 @@
+
+:host {
+  width: 100%;
+}
+.students-dialog {
+
+  width: 100%;
+
+  &__button {
+    margin-left: 24px;
+  }
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
