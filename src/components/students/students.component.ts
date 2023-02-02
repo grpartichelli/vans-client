@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {StudentsDialogComponent} from "../students-dialog/students-dialog.component";
+import {Student} from "../../models/student.model";
+import {StudentService} from "../../service/student.service";
 
 @Component({
   selector: 'app-students',
@@ -9,17 +11,26 @@ import {StudentsDialogComponent} from "../students-dialog/students-dialog.compon
 })
 export class StudentsComponent {
 
+  public students: Array<Student> = [];
 
-  constructor(public dialog: MatDialog) {
-    this.openEditDialog()
+  constructor(public dialog: MatDialog, public studentService: StudentService) {
+    this.loadList()
   }
 
-  public updateList(): void {
-
+  public loadList(): void {
+    this.studentService.find()
+      .then(it => this.students = it)
   }
 
+  public onStudentClicked(student: Student) {
+    this.openEditDialog(student)
+  }
 
-  public openEditDialog() {
+  public openEditDialog(student: Student = new Student()) {
+
+    if (student.id === "") {
+      student.id = this.students.length.toString();
+    }
     const dialogRef = this.dialog.open(StudentsDialogComponent, {
       panelClass: 'custom-dialog-container',
       maxWidth: '100vw',
@@ -28,5 +39,10 @@ export class StudentsComponent {
       width: '100%',
     })
 
+    dialogRef.componentInstance.student = student;
+
+    dialogRef
+      .afterClosed()
+      .subscribe(() => this.loadList())
   }
 }

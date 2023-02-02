@@ -21,6 +21,7 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatDialogModule} from "@angular/material/dialog";
 import {StudentsDialogComponent} from "../components/students-dialog/students-dialog.component";
 import {MatSelectModule} from "@angular/material/select";
+import {MatListModule} from "@angular/material/list";
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {MatSelectModule} from "@angular/material/select";
     MatMenuModule,
     MatDialogModule,
     MatSelectModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

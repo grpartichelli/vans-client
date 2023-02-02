@@ -1,4 +1,13 @@
 <div class="students">
+  <mat-action-list #student class="students__list">
+
+    <mat-list-item *ngFor="let student of students" class="students__item"
+    (click)="onStudentClicked(student)">
+      <mat-icon >person</mat-icon>
+      <p class="students__item-text">{{student.name}}</p>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-action-list>
   <button mat-fab color="primary" class="students__add-button" (click)="openEditDialog()">
     <mat-icon>add</mat-icon>
   </button>

@@ -11,4 +11,5 @@ export class Student {
   public shift = ShiftType.MORNING;
   public direction = DirectionType.BOTH
   public username = "";
+  public id = "";
 }

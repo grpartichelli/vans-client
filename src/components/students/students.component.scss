@@ -9,4 +9,19 @@
       right: 0;
       margin: 36px;
    }
+
+
+  &__list {
+    padding-top: 0;
+  }
+  &__item {
+
+      .mat-icon {
+      margin-right: 8px
+      }
+
+      &-text {
+        font-size:16px;
+      }
+  }
 }

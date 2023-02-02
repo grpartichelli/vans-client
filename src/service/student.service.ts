@@ -13,9 +13,14 @@ export class StudentService {
   // mock implementation
   public save(student: Student): Promise<any> {
     let students = this.localStorageService.getData<Array<Student>>("students") ?? []
-    let newStudents = students.filter(it => it.name !== student.name);
+    let newStudents = students.filter(it => it.id !== student.id);
     newStudents.push(student);
     this.localStorageService.saveData("students", newStudents);
     return Promise.resolve();
+  }
+
+  public find(): Promise<Array<Student>> {
+    let students = this.localStorageService.getData<Array<Student>>("students") ?? []
+    return Promise.resolve(students);
   }
 }
