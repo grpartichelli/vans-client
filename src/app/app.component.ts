@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ExampleService} from "../service/example.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,9 @@ import {ExampleService} from "../service/example.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private readonly exampleService: ExampleService) {}
+  constructor(private readonly router: Router) {}
 
-
+  public get isLogin(): boolean {
+    return this.router.url === '/login';
+  }
 }

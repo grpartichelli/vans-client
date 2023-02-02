@@ -1,5 +1,5 @@
-<app-toolbar></app-toolbar>
+<app-toolbar ></app-toolbar>
 <div class="app__router-outlet">
   <router-outlet ></router-outlet>
 </div>
-<app-bottom-bar></app-bottom-bar>
+<app-bottom-bar *ngIf="!isLogin"></app-bottom-bar>

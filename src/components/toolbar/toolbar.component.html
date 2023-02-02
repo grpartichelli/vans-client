@@ -1,5 +1,8 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button class="example-icon" >
+  <button mat-icon-button *ngIf="isLogin">
+    <mat-icon>airport_shuttle</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" *ngIf="!isLogin">
     <mat-icon>menu</mat-icon>
   </button>
 
@@ -7,8 +10,10 @@
 
   <span class="toolbar__spacer"></span>
 
-  <button mat-icon-button >
+  <button mat-icon-button *ngIf="!isLogin">
     <mat-icon>settings</mat-icon>
   </button>
+
+
 </mat-toolbar>
 
