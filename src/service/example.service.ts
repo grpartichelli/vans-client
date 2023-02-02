@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../environments/environment";
-import {SecurityHeaders} from "./security-headers";
+import {SecurityHeaders} from "../security/security-headers";
 
 @Injectable({providedIn: 'root'})
 export class ExampleService {
