@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-students',
@@ -7,4 +8,19 @@ import { Component } from '@angular/core';
 })
 export class StudentsComponent {
 
+
+  constructor(public dialog: MatDialog) {
+  }
+
+  public updateList(): void {
+
+  }
+
+  public openEditDialog() {
+    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.updateList()
+    });
+  }
 }

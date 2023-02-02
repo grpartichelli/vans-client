@@ -18,6 +18,7 @@ import {BottomBar} from "../components/bottom-bar/bottom-bar.component";
 import {StudentsComponent} from "../components/students/students.component";
 import {RoutesComponent} from "../components/routes/routes.component";
 import {MatMenuModule} from "@angular/material/menu";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {MatMenuModule} from "@angular/material/menu";
     FormsModule,
     MatToolbarModule,
     MatMenuModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
