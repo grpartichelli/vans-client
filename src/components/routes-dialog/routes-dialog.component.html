@@ -1,0 +1,33 @@
+<form #studentFrom="ngForm" class="routes-dialog" (ngSubmit)="studentFrom.valid && onSubmit()">
+  <h2 class="routes-dialog__title">Informações da rota</h2>
+
+  <div class="routes-dialog__body">
+    <mat-form-field class="routes-dialog__field">
+      <input matInput placeholder="Nome" name="name" [(ngModel)]="route.name" type="text" pattern="[a-z A-Z]*" required>
+      <mat-error>
+        Insira o nome da rota
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="routes-dialog__field">
+      <mat-label>Turno</mat-label>
+      <mat-select [(ngModel)]="route.shift" name="shift">
+        <mat-option
+          *ngFor="let shift of shifts"
+          [value]="shift.key"
+        >
+          {{shift.view}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="routes-dialog__buttons">
+    <button mat-stroked-button color="primary" class="routes-dialog__button" (click)="close()">
+      Cancelar
+    </button>
+    <button mat-raised-button color="primary" class="routes-dialog__button">
+      Salvar
+    </button>
+  </div>
+</form>
+

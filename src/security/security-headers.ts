@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {LocalStorageService} from "../service/local-storage.service";
-import {User} from "../models/user.model";
+import {UserModel} from "../models/user.model";
 
 @Injectable({providedIn: 'root'})
 export class SecurityHeaders {
@@ -9,7 +9,7 @@ export class SecurityHeaders {
   }
 
   public get(): any {
-    const user = this.localStorageService.getData<User>("user");
+    const user = this.localStorageService.getData<UserModel>("user");
 
     return {
       headers: {

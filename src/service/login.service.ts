@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {LocalStorageService} from "./local-storage.service";
-import {User} from "../models/user.model";
+import {UserModel} from "../models/user.model";
 
 @Injectable({providedIn: 'root'})
 export class LoginService {
@@ -9,8 +9,8 @@ export class LoginService {
   constructor(private readonly httpClient: HttpClient, private readonly localStorageService: LocalStorageService) {}
 
   // mock implementation
-  public login(user: User): Promise<any> {
-    let users = this.localStorageService.getData<Array<User>>("users") ?? [];
+  public login(user: UserModel): Promise<any> {
+    let users = this.localStorageService.getData<Array<UserModel>>("users") ?? [];
 
     if (!users.some(it => it.username === user.username && it.password === user.password)) {
       return Promise.reject();
@@ -20,8 +20,8 @@ export class LoginService {
     return Promise.resolve();
   }
 
-  public register(user: User): Promise<any> {
-    let users = this.localStorageService.getData<Array<User>>("users") ?? [];
+  public register(user: UserModel): Promise<any> {
+    let users = this.localStorageService.getData<Array<UserModel>>("users") ?? [];
 
     if (users.some(it => it.username === user.username)) {
       return Promise.reject();

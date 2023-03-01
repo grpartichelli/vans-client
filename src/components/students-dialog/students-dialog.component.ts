@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Student} from "../../models/student.model";
+import {StudentModel} from "../../models/student.model";
 import {ShiftType} from "../../models/shiftType.model";
 import {MatDialogRef} from "@angular/material/dialog";
 import {DirectionType} from "../../models/directionType.model";
@@ -13,11 +13,11 @@ import {StudentService} from "../../service/student.service";
 export class StudentsDialogComponent {
 
 
-  constructor(public dialogRef: MatDialogRef<StudentsDialogComponent, Student>,
+  constructor(public dialogRef: MatDialogRef<StudentsDialogComponent, StudentModel>,
               private readonly  studentService: StudentService) {
   }
 
-  @Input() student: Student = new Student();
+  @Input() student: StudentModel = new StudentModel();
   public shifts = [{
     key: ShiftType.MORNING,
     view: "Manhã"

@@ -22,6 +22,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {StudentsDialogComponent} from "../components/students-dialog/students-dialog.component";
 import {MatSelectModule} from "@angular/material/select";
 import {MatListModule} from "@angular/material/list";
+import {RoutesDialogComponent} from "../components/routes-dialog/routes-dialog.component";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {MatListModule} from "@angular/material/list";
     BottomBar,
     StudentsComponent,
     RoutesComponent,
-    StudentsDialogComponent
+    StudentsDialogComponent,
+    RoutesDialogComponent
   ],
   imports: [
     BrowserModule,

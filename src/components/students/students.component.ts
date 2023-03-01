@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {StudentsDialogComponent} from "../students-dialog/students-dialog.component";
-import {Student} from "../../models/student.model";
+import {StudentModel} from "../../models/student.model";
 import {StudentService} from "../../service/student.service";
 
 @Component({
@@ -11,7 +11,7 @@ import {StudentService} from "../../service/student.service";
 })
 export class StudentsComponent {
 
-  public students: Array<Student> = [];
+  public students: Array<StudentModel> = [];
 
   constructor(public dialog: MatDialog, public studentService: StudentService) {
     this.loadList()
@@ -22,11 +22,11 @@ export class StudentsComponent {
       .then(it => this.students = it)
   }
 
-  public onStudentClicked(student: Student) {
+  public onStudentClicked(student: StudentModel) {
     this.openEditDialog(student)
   }
 
-  public openEditDialog(student: Student = new Student()) {
+  public openEditDialog(student: StudentModel = new StudentModel()) {
 
     if (student.id === "") {
       student.id = this.students.length.toString();

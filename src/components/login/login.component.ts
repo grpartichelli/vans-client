@@ -1,7 +1,7 @@
 import {Component, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoginService} from "../../service/login.service";
-import {User} from "../../models/user.model";
+import {UserModel} from "../../models/user.model";
 
 @Component({
   selector: 'app-login',
@@ -31,7 +31,7 @@ export class LoginComponent {
   }
 
   public register(): void {
-    this.loginService.register(new User(this.username, this.password))
+    this.loginService.register(new UserModel(this.username, this.password))
       .then(() => {
         this.registrationValid = true;
         this.router.navigate(['students']).then();
@@ -43,7 +43,7 @@ export class LoginComponent {
   }
 
   public login(): void {
-    this.loginService.login(new User(this.username, this.password))
+    this.loginService.login(new UserModel(this.username, this.password))
       .then(() => {
         this.router.navigate(['students']).then();
         this.loginValid = true

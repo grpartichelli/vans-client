@@ -1,7 +1,7 @@
 import {ShiftType} from "./shiftType.model";
 import {DirectionType} from "./directionType.model";
 
-export class Student {
+export class StudentModel {
   public name = '';
   public address = '';
   public legalGuardianName = '';
