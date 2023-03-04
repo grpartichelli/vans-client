@@ -17,7 +17,8 @@ export class BottomBar {
   }
 
   public get isRoutesRoute(): boolean {
-    return this.router.url === "/routes";
+    return this.router.url === "/routes"
+      || this.router.url === "/play";
   }
 
   public goToStudents(): void {

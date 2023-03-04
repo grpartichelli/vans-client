@@ -3,6 +3,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {RouteModel} from "../../models/route.model";
 import {RouteService} from "../../service/route.service";
 import {RoutesDialogComponent} from "../routes-dialog/routes-dialog.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-routes',
@@ -12,13 +13,18 @@ import {RoutesDialogComponent} from "../routes-dialog/routes-dialog.component";
 export class RoutesComponent {
   public routes: Array<RouteModel> = [];
 
-  constructor(public dialog: MatDialog, public routeService: RouteService) {
+  constructor(public dialog: MatDialog, public routeService: RouteService, public router: Router) {
     this.loadList()
   }
 
   public loadList(): void {
     this.routeService.find()
       .then(it => this.routes = it)
+  }
+
+  public play(event: Event, route: RouteModel) {
+    event.stopPropagation()
+    this.router.navigate(['play']).then()
   }
 
   public openEditDialog(route: RouteModel = new RouteModel()) {

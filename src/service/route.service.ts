@@ -1,9 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {LocalStorageService} from "./local-storage.service";
-import {StudentModel} from "../models/student.model";
 import {RouteModel} from "../models/route.model";
-import {Route} from "@angular/router";
 
 
 @Injectable({providedIn: 'root'})

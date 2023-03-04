@@ -4,12 +4,14 @@ import {LoginComponent} from "../components/login/login.component";
 import {AuthGuardService} from "../security/auth-guard.service";
 import {StudentsComponent} from "../components/students/students.component";
 import {RoutesComponent} from "../components/routes/routes.component";
+import {RoutesPlayComponent} from "../components/routes-play/routes-play.component";
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'students', component: StudentsComponent, canActivate: [AuthGuardService]},
   { path: 'routes', component: RoutesComponent, canActivate: [AuthGuardService]},
+  { path: 'play', component: RoutesPlayComponent, canActivate: [AuthGuardService]},
   { path: '**', redirectTo: 'routes', pathMatch: 'full' },
 ];
 

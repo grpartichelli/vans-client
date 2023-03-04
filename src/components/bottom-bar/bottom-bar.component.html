@@ -1,5 +1,5 @@
 <mat-toolbar class="bottom-bar" color="primary">
-  <button *ngIf="isRoutesRoute"  class="bottom-bar__button" color="accent" mat-icon-button >
+  <button *ngIf="isRoutesRoute"  class="bottom-bar__button" color="accent" mat-icon-button (click)="goToRoutes()">
     <mat-icon >airport_shuttle</mat-icon>
   </button>
   <button *ngIf="!isRoutesRoute" class="bottom-bar__button"  mat-icon-button (click)="goToRoutes()" >

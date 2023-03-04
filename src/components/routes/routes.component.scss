@@ -16,8 +16,24 @@
 
   &__item {
 
-    .mat-icon {
-      margin-right: 16px
+    display: flex;
+
+    &-shuttle {
+      margin-right: 16px;
+    }
+    &-play {
+      min-height: 36px;
+      min-width: 36px;
+      font-size: 36px;
+      line-height: 36px;
+
+      &-button {
+        height: 36px;
+        width: 36px;
+        line-height: 36px;
+        margin-left: auto;
+        z-index: 60;
+      }
     }
 
     &-container {

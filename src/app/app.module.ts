@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDividerModule} from "@angular/material/divider";
 import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
@@ -28,6 +28,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ShiftPipe} from "../pipe/shift.pipe";
 import {DeleteDialogComponent} from "../components/delete-dialog/delete-dialog.component";
+import {RoutesPlayComponent} from "../components/routes-play/routes-play.component";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {DeleteDialogComponent} from "../components/delete-dialog/delete-dialog.c
     StudentsSelectDialogComponent,
     RoutesDialogComponent,
     ShiftPipe,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    RoutesPlayComponent
   ],
   imports: [
     BrowserModule,
