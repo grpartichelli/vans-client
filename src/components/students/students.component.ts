@@ -22,12 +22,8 @@ export class StudentsComponent {
       .then(it => this.students = it)
   }
 
-  public onStudentClicked(student: StudentModel) {
-    this.openEditDialog(student)
-  }
-
-  public openEditDialog(student: StudentModel = new StudentModel()) {
-
+  public openEditDialog(event: Event, student: StudentModel = new StudentModel()) {
+    event.stopPropagation();
     const dialogRef = this.dialog.open(StudentsDialogComponent, {
       panelClass: 'custom-dialog-container',
       maxWidth: '100vw',

@@ -27,7 +27,10 @@ export class RoutesComponent {
     this.router.navigate(['play', route.id]).then()
   }
 
-  public openEditDialog(route: RouteModel = new RouteModel()) {
+  public openEditDialog(event: Event, route: RouteModel = new RouteModel()) {
+
+    event.stopPropagation();
+
     const dialogRef = this.dialog.open(RoutesDialogComponent, {
       panelClass: 'custom-dialog-container',
       maxWidth: '100vw',

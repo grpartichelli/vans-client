@@ -1,19 +1,25 @@
 <div class="routes">
-  <mat-action-list #route class="routes__list">
+  <h2 class="routes__title">Rotas</h2>
 
-    <mat-list-item *ngFor="let route of routes" class="routes__item" (click)="openEditDialog(route)">
-      <mat-icon class="routes__item-shuttle">airport_shuttle</mat-icon>
-      <div class="routes__item-container">
-        <div class="routes__item-text">{{route.name}}</div>
-        <div class="routes__item-sub-text">{{route.shift | shift}}</div>
-      </div>
-      <button class="routes__item-play-button" mat-icon-button color="accent" (click)="play($event, route)" >
-        <mat-icon class="routes__item-play">play_circle_filled</mat-icon>
-      </button>
-      <mat-divider></mat-divider>
-    </mat-list-item>
-  </mat-action-list>
-  <button mat-fab color="primary" class="routes__add-button" (click)="openEditDialog()">
+  <div class="routes__body">
+    <mat-action-list #route class="routes__list">
+
+      <mat-list-item *ngFor="let route of routes" class="routes__item" (click)="openEditDialog($event, route)">
+        <mat-icon class="routes__item-shuttle">airport_shuttle</mat-icon>
+        <div class="routes__item-container">
+          <div class="routes__item-text">{{route.name}}</div>
+          <div class="routes__item-sub-text">{{route.shift | shift}}</div>
+        </div>
+        <button class="routes__item-play-button" mat-icon-button color="accent" (click)="play($event, route)">
+          <mat-icon class="routes__item-play">play_circle_filled</mat-icon>
+        </button>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-action-list>
+
+  </div>
+  <button mat-fab color="primary" class="routes__add-button" (click)="openEditDialog($event)">
     <mat-icon>add</mat-icon>
   </button>
+
 </div>

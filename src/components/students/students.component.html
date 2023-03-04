@@ -1,8 +1,10 @@
 <div class="students">
-  <mat-action-list #student class="students__list">
+  <h2 class="students__title">Estudantes</h2>
 
+  <div class="students__body">
+  <mat-action-list #student class="students__list">
     <mat-list-item *ngFor="let student of students" class="students__item"
-    (click)="onStudentClicked(student)">
+    (click)="openEditDialog($event, student)">
       <mat-icon >person</mat-icon>
       <div class="students__item-container">
         <div class="students__item-text">{{student.name}}</div>
@@ -11,7 +13,8 @@
       <mat-divider></mat-divider>
     </mat-list-item>
   </mat-action-list>
-  <button mat-fab color="primary" class="students__add-button" (click)="openEditDialog()">
+  </div>
+  <button mat-fab color="primary" class="students__add-button" (click)="openEditDialog($event)">
     <mat-icon>add</mat-icon>
   </button>
 </div>
