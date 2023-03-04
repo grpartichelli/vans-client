@@ -14,8 +14,11 @@ export class RoutesPlayComponent implements OnInit{
   public route = new RouteModel();
   public studentIndex = 0;
   public student = new StudentModel();
+  public hasFinished = false;
+
 
   constructor(private readonly activatedRoute: ActivatedRoute,
+              private readonly router: Router,
               private readonly routeService: RouteService) {}
 
   ngOnInit(): void {
@@ -24,13 +27,16 @@ export class RoutesPlayComponent implements OnInit{
         .then(routes => routes.find(it => it.id === params['id']) || new RouteModel())
         .then(route => {
           this.route = route;
+          this.hasFinished = this.route.students.length === 0;
           this.updateCurrentStudent()
         })
     )
   }
 
   updateCurrentStudent() {
-    this.student = this.route.students[this.studentIndex]
+    if (this.studentIndex < this.route.students.length) {
+      this.student = this.route.students[this.studentIndex]
+    }
   }
 
   isBackDisabled() : boolean {
@@ -39,16 +45,23 @@ export class RoutesPlayComponent implements OnInit{
 
   goBack() {
     this.studentIndex -= 1;
+    this.hasFinished = false;
     this.updateCurrentStudent()
-  }
-
-  isFinalDestination(): boolean {
-    return this.studentIndex === this.route.students.length - 1
   }
 
   goForward() {
     this.studentIndex += 1;
+    this.hasFinished = this.route.students.length === this.studentIndex;
+
+    if (this.hasFinished) {
+      return;
+    }
+
     this.updateCurrentStudent();
+  }
+
+  goToRoutes() {
+    this.router.navigate(['routes']).then()
   }
 
 }
