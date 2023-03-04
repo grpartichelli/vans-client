@@ -1,4 +1,21 @@
 <div class="routes-play">
   <h2 class="routes-play__title">{{route.name}}</h2>
+
+
+  <div class="routes-play__body">
+    <div class="routes-play__info">
+      <div class="routes-play__info-destination"> {{student.address}}</div>
+      <div class="routes-play__info-name">Destino de {{student.name}}</div>
+    </div>
+    <div class="routes-play__buttons">
+      <button class="routes-play__button" mat-fab color="primary" (click)="goBack()" [disabled]="isBackDisabled()">
+        <mat-icon class="routes-play__button-icon">arrow_back</mat-icon>
+      </button>
+      <button class="routes-play__button" mat-fab color="primary" (click)="goForward()" [disabled]="isFinalDestination()">
+        <mat-icon class="routes-play__button-icon">check</mat-icon>
+      </button>
+    </div>
+  </div>
+
 </div>
 

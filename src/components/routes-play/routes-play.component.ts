@@ -15,20 +15,6 @@ export class RoutesPlayComponent implements OnInit{
   public studentIndex = 0;
   public student = new StudentModel();
 
-  private startStudent = () => {
-    let student = new StudentModel();
-    student.name = "Início"
-    student.address = "Endereço de ínicio"
-    return student;
-  }
-
-  private endStudent = () => {
-    let student = new StudentModel()
-    student.name = "Fim"
-    student.address = "Endereço de fim"
-    return student;
-  }
-
   constructor(private readonly activatedRoute: ActivatedRoute,
               private readonly routeService: RouteService) {}
 
@@ -38,8 +24,6 @@ export class RoutesPlayComponent implements OnInit{
         .then(routes => routes.find(it => it.id === params['id']) || new RouteModel())
         .then(route => {
           this.route = route;
-          route.students.unshift(this.startStudent())
-          route.students.push(this.endStudent())
           this.updateCurrentStudent()
         })
     )
@@ -47,6 +31,24 @@ export class RoutesPlayComponent implements OnInit{
 
   updateCurrentStudent() {
     this.student = this.route.students[this.studentIndex]
+  }
+
+  isBackDisabled() : boolean {
+    return this.studentIndex === 0
+  }
+
+  goBack() {
+    this.studentIndex -= 1;
+    this.updateCurrentStudent()
+  }
+
+  isFinalDestination(): boolean {
+    return this.studentIndex === this.route.students.length - 1
+  }
+
+  goForward() {
+    this.studentIndex += 1;
+    this.updateCurrentStudent();
   }
 
 }
