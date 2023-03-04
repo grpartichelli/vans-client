@@ -21,6 +21,7 @@ export class StudentService {
 
   public find(): Promise<Array<StudentModel>> {
     let students = this.localStorageService.getData<Array<StudentModel>>("students") ?? []
+    students.sort((one, two) => (one.name > two.name ? 1 : -1))
     return Promise.resolve(students);
   }
 }

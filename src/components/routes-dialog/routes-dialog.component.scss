@@ -13,9 +13,7 @@
 
   box-sizing: border-box;
 
-  &__title {
-    padding-inline: 24px;
-  }
+
 
   &__field {
     margin-bottom: 12px;
@@ -24,14 +22,14 @@
 
   &__list {
     padding-top: 0;
-    margin-block: 16px;
   }
 
   &__tag {
     text-align: center;
-    font-size: 14px;
+    font-size: 16px;
     color: #727272;
     text-transform: uppercase;
+    margin-block: 22px
   }
 
   &__item {
@@ -75,6 +73,7 @@
   }
 
   &__buttons {
+    margin-top:24px;
     padding-inline: 24px;
     display: flex;
     justify-content: flex-end;

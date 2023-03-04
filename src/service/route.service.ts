@@ -22,6 +22,7 @@ export class RouteService {
 
   public find(): Promise<Array<RouteModel>> {
     let routes = this.localStorageService.getData<Array<RouteModel>>("routes") ?? []
+    routes.sort((one, two) => (one.name > two.name ? 1 : -1))
     return Promise.resolve(routes);
   }
 }
