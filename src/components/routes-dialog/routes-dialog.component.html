@@ -1,10 +1,10 @@
-<form #studentFrom="ngForm" class="routes-dialog" (ngSubmit)="studentFrom.valid && onSubmit()">
+<form #routesForm="ngForm" class="routes-dialog" (ngSubmit)="routesForm.valid && onSubmit()">
 
 
   <div class="routes-dialog__body">
     <h2 class="routes-dialog__title">Informações</h2>
     <mat-form-field class="routes-dialog__field">
-      <input matInput placeholder="Nome" name="name" [(ngModel)]="route.name" type="text" pattern="[a-z A-Z]*" required>
+      <input matInput placeholder="Nome" name="name" [(ngModel)]="route.name" type="text"  required>
       <mat-error>
         Insira o nome da rota
       </mat-error>
@@ -15,9 +15,9 @@
       <mat-select [(ngModel)]="route.shift" name="shift">
         <mat-option
           *ngFor="let shift of shifts"
-          [value]="shift.key"
+          [value]="shift"
         >
-          {{shift.view}}
+          {{shift | shift}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -46,7 +46,7 @@
 
           <div *cdkDragPreview style="display: flex">
             <mat-icon>menu</mat-icon>
-            <div style="display: flex; flex-direction: column">
+            <div class="routes-dialog__item-container">
               <div class="routes-dialog__item-text">{{student.name}}</div>
               <div class="routes-dialog__item-sub-text">{{student.address}}</div>
             </div>
@@ -67,10 +67,10 @@
   </div>
 
   <div class="routes-dialog__buttons">
-    <button mat-stroked-button color="primary" class="routes-dialog__button" (click)="close()">
+    <button mat-stroked-button color="primary" class="routes-dialog__button" type="button"(click)="close()">
       Cancelar
     </button>
-    <button mat-raised-button color="primary" class="routes-dialog__button" (click)="onSubmit()">
+    <button mat-raised-button color="primary" class="routes-dialog__button">
       Salvar
     </button>
   </div>

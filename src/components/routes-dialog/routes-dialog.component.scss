@@ -35,12 +35,13 @@
   &__item {
 
     .mat-icon {
-      margin-right: 8px
+      margin-right: 16px
     }
 
-    &-index {
-      font-size: 20px;
-      margin-right: 8px;
+
+    &-container {
+      display: flex;
+      flex-direction: column
     }
 
     &-text {

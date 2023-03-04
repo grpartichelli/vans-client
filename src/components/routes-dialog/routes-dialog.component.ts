@@ -22,13 +22,7 @@ export class RoutesDialogComponent {
 
   @Input() route: RouteModel = new RouteModel();
 
-  public shifts = [{
-    key: ShiftType.MORNING,
-    view: "Manhã"
-  }, {
-    key: ShiftType.AFTERNOON,
-    view: "Tarde"
-  },];
+  public shifts : Array<ShiftType> = Object.values(ShiftType);
 
 
   public close(): void {

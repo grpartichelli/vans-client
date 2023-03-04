@@ -3,7 +3,7 @@
 
   <div class="students-dialog__body">
     <mat-form-field class="students-dialog__field">
-      <input matInput placeholder="Nome" name="name" [(ngModel)]="student.name" type="text" pattern="[a-z A-Z]*" required>
+      <input matInput placeholder="Nome" name="name" [(ngModel)]="student.name" type="text"  required>
       <mat-error>
         Insira o nome do estudante
       </mat-error>
@@ -17,7 +17,7 @@
     </mat-form-field>
 
     <mat-form-field class="students-dialog__field">
-      <input matInput placeholder="Nome do responsável"  type="text"  pattern="[a-z A-Z]*" name="legalGuardian" [(ngModel)]="student.legalGuardianName"
+      <input matInput placeholder="Nome do responsável"  type="text"   name="legalGuardian" [(ngModel)]="student.legalGuardianName"
              required>
       <mat-error>
         Insira o nome do responsável
@@ -31,11 +31,9 @@
         <mat-select [(ngModel)]="student.shift" name="shift">
           <mat-option
             *ngFor="let shift of shifts"
-
-            [value]="shift.key"
-
+            [value]="shift"
           >
-            {{shift.view}}
+            {{ shift | shift}}
           </mat-option>
         </mat-select>
       </mat-form-field>

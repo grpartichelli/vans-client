@@ -4,7 +4,10 @@
     <mat-list-item *ngFor="let route of routes" class="routes__item"
                    (click)="onRouteClicked(route)">
       <mat-icon >airport_shuttle</mat-icon>
-      <p class="routes__item-text">{{route.name}}</p>
+      <div class="routes__item-container">
+        <div class="routes__item-text">{{route.name}}</div>
+        <div class="routes__item-sub-text">{{route.shift | shift}}</div>
+      </div>
       <mat-divider></mat-divider>
     </mat-list-item>
   </mat-action-list>
