@@ -20,7 +20,6 @@ export class RoutesComponent {
   public loadList(): void {
     this.routeService.find()
       .then(it => this.routes = it)
-      .then(it => this.play(new Event("test"), it[7]))
   }
 
   public play(event: Event, route: RouteModel) {
