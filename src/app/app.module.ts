@@ -24,6 +24,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatListModule} from "@angular/material/list";
 import {RoutesDialogComponent} from "../components/routes-dialog/routes-dialog.component";
 import {StudentsSelectDialogComponent} from "../components/students-select-dialog/students-select-dialog.component";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import {StudentsSelectDialogComponent} from "../components/students-select-dialo
     MatDialogModule,
     MatSelectModule,
     MatListModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

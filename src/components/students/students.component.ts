@@ -37,6 +37,7 @@ export class StudentsComponent {
       maxHeight: '100vh',
       height: '100%',
       width: '100%',
+      autoFocus: false
     })
 
     dialogRef.componentInstance.student = student;

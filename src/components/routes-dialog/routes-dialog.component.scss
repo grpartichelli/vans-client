@@ -22,6 +22,33 @@
     width: 100%;
   }
 
+  &__list {
+    padding-top: 0;
+    margin-block: 24px;
+  }
+
+  &__item {
+
+    .mat-icon {
+      margin-right: 8px
+    }
+
+    &-index {
+      font-size: 20px;
+      margin-right: 8px;
+    }
+
+    &-text {
+      font-size:16px;
+    }
+
+    &-sub-text {
+      font-size: 12px;
+      color: #727272;
+    }
+  }
+
+
   &__body {
     flex: 1;
     overflow-y: scroll;
@@ -32,8 +59,6 @@
 
   &__body-button {
     width: 100%;
-    //margin-top: auto;
-    margin-bottom: 24px;
   }
 
 

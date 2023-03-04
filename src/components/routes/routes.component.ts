@@ -14,7 +14,6 @@ export class RoutesComponent {
 
   constructor(public dialog: MatDialog, public routeService: RouteService) {
     this.loadList()
-    this.openEditDialog(new RouteModel())
   }
 
   public loadList(): void {
@@ -37,6 +36,7 @@ export class RoutesComponent {
       maxHeight: '100vh',
       height: '100%',
       width: '100%',
+      autoFocus: false
     })
 
     dialogRef.componentInstance.route = route;

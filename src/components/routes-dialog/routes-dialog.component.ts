@@ -15,6 +15,7 @@ export class RoutesDialogComponent {
     public dialogRef: MatDialogRef<RoutesDialogComponent, RouteModel>,
     private readonly  routeService: RouteService,
     public dialog: MatDialog) {
+
   }
 
   @Input() route: RouteModel = new RouteModel();
@@ -47,10 +48,9 @@ export class RoutesDialogComponent {
       maxHeight: '100vh',
       height: '100%',
       width: '100%',
+      autoFocus: false
     })
 
     dialogRef.componentInstance.route = this.route;
-
-    dialogRef.afterClosed().subscribe()
   }
 }
