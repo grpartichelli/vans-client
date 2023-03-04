@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'students', component: StudentsComponent, canActivate: [AuthGuardService]},
   { path: 'routes', component: RoutesComponent, canActivate: [AuthGuardService]},
-  { path: 'play', component: RoutesPlayComponent, canActivate: [AuthGuardService]},
+  { path: 'play/:id', component: RoutesPlayComponent, canActivate: [AuthGuardService]},
   { path: '**', redirectTo: 'routes', pathMatch: 'full' },
 ];
 

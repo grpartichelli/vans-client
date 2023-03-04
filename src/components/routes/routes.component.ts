@@ -24,7 +24,7 @@ export class RoutesComponent {
 
   public play(event: Event, route: RouteModel) {
     event.stopPropagation()
-    this.router.navigate(['play']).then()
+    this.router.navigate(['play', route.id]).then()
   }
 
   public openEditDialog(route: RouteModel = new RouteModel()) {
