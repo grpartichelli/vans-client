@@ -23,6 +23,7 @@ import {StudentsDialogComponent} from "../components/students-dialog/students-di
 import {MatSelectModule} from "@angular/material/select";
 import {MatListModule} from "@angular/material/list";
 import {RoutesDialogComponent} from "../components/routes-dialog/routes-dialog.component";
+import {StudentsSelectDialogComponent} from "../components/students-select-dialog/students-select-dialog.component";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import {RoutesDialogComponent} from "../components/routes-dialog/routes-dialog.c
     StudentsComponent,
     RoutesComponent,
     StudentsDialogComponent,
+    StudentsSelectDialogComponent,
     RoutesDialogComponent
   ],
   imports: [

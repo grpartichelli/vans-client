@@ -20,7 +20,11 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <button  mat-raised-button color="primary" class="routes-dialog__body-button" (click)="openStudentSelectDialog()">
+      <mat-icon>person</mat-icon><span>Selecionar estudantes</span>
+    </button>
   </div>
+
   <div class="routes-dialog__buttons">
     <button mat-stroked-button color="primary" class="routes-dialog__button" (click)="close()">
       Cancelar

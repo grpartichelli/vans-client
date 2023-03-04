@@ -1,10 +1,9 @@
 import {Component, Input} from '@angular/core';
-import {MatDialogRef} from "@angular/material/dialog";
-import {StudentModel} from "../../models/student.model";
-import {StudentService} from "../../service/student.service";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {RouteModel} from 'src/models/route.model';
 import {RouteService} from "../../service/route.service";
 import {ShiftType} from "../../models/shiftType.model";
+import {StudentsSelectDialogComponent} from "../students-select-dialog/students-select-dialog.component";
 
 @Component({
   selector: 'app-routes-dialog',
@@ -12,8 +11,10 @@ import {ShiftType} from "../../models/shiftType.model";
   styleUrls: ['./routes-dialog.component.scss']
 })
 export class RoutesDialogComponent {
-  constructor(public dialogRef: MatDialogRef<RoutesDialogComponent, RouteModel>,
-              private readonly  routeService: RouteService) {
+  constructor(
+    public dialogRef: MatDialogRef<RoutesDialogComponent, RouteModel>,
+    private readonly  routeService: RouteService,
+    public dialog: MatDialog) {
   }
 
   @Input() route: RouteModel = new RouteModel();
@@ -36,5 +37,20 @@ export class RoutesDialogComponent {
       .then(() => {
         this.dialogRef.close(this.route)
       })
+  }
+
+  public openStudentSelectDialog() {
+
+    const dialogRef = this.dialog.open(StudentsSelectDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      maxWidth: '100vw',
+      maxHeight: '100vh',
+      height: '100%',
+      width: '100%',
+    })
+
+    dialogRef.componentInstance.route = this.route;
+
+    dialogRef.afterClosed().subscribe()
   }
 }

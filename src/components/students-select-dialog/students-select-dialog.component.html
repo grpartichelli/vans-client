@@ -1,0 +1,10 @@
+<div class="students-select-dialog">
+  <mat-action-list #student class="students-select-dialog__list">
+
+    <mat-list-item *ngFor="let student of route.students" class="students-select-dialog__item">
+      <mat-icon >person</mat-icon>
+      <p class="students-select-dialog__item-text">{{student.name}}</p>
+      <mat-divider></mat-divider>
+    </mat-list-item>
+  </mat-action-list>
+</div>
