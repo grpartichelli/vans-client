@@ -25,6 +25,7 @@ import {MatListModule} from "@angular/material/list";
 import {RoutesDialogComponent} from "../components/routes-dialog/routes-dialog.component";
 import {StudentsSelectDialogComponent} from "../components/students-select-dialog/students-select-dialog.component";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {DragDropModule} from "@angular/cdk/drag-drop";
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     MatSelectModule,
     MatListModule,
     MatCheckboxModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -24,7 +24,14 @@
 
   &__list {
     padding-top: 0;
-    margin-block: 24px;
+    margin-block: 16px;
+  }
+
+  &__tag {
+    text-align: center;
+    font-size: 14px;
+    color: #727272;
+    text-transform: uppercase;
   }
 
   &__item {
@@ -59,6 +66,7 @@
 
   &__body-button {
     width: 100%;
+    margin-bottom: 24px;
   }
 
 

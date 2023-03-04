@@ -4,6 +4,8 @@ import {RouteModel} from 'src/models/route.model';
 import {RouteService} from "../../service/route.service";
 import {ShiftType} from "../../models/shiftType.model";
 import {StudentsSelectDialogComponent} from "../students-select-dialog/students-select-dialog.component";
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {StudentModel} from "../../models/student.model";
 
 @Component({
   selector: 'app-routes-dialog',
@@ -38,6 +40,19 @@ export class RoutesDialogComponent {
       .then(() => {
         this.dialogRef.close(this.route)
       })
+  }
+
+  drop(event: CdkDragDrop<Array<StudentModel>, any>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
 
   public openStudentSelectDialog() {

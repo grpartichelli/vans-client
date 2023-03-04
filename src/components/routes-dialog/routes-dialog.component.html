@@ -21,18 +21,26 @@
       </mat-select>
     </mat-form-field>
 
-    <h2 >Rota</h2>
+    <h2>Rota</h2>
 
-    <button  mat-raised-button color="primary" type="button" class="routes-dialog__body-button"  (click)="openStudentSelectDialog()">
-      <mat-icon>person</mat-icon><span>Selecionar estudantes</span>
+    <button mat-raised-button color="primary" type="button" class="routes-dialog__body-button"
+            (click)="openStudentSelectDialog()">
+      <mat-icon>person</mat-icon>
+      <span>Selecionar estudantes</span>
     </button>
 
-    <mat-action-list #student class="routes-dialog__list">
+    <mat-divider></mat-divider>
+    <span class="routes-dialog__tag" style="margin-top: 16px">Inicio</span>
+
+    <mat-action-list #student class="routes-dialog__list"
+                     cdkDropList
+                     [cdkDropListData]="route.students"
+                     (cdkDropListDropped)="drop($event)"
+    >
       <mat-divider></mat-divider>
 
-      <mat-list-item *ngFor="let student of route.students; let i = index;" class="routes-dialog__item">
+      <mat-list-item *ngFor="let student of route.students; let i = index;" class="routes-dialog__item" cdkDrag>
         <mat-icon>menu</mat-icon>
-        <span class="routes-dialog__item-index">{{i + 1}}</span>
         <div style="display: flex; flex-direction: column">
           <div class="routes-dialog__item-text">{{student.name}}</div>
           <div class="routes-dialog__item-sub-text">{{student.address}}</div>
@@ -41,6 +49,8 @@
       </mat-list-item>
     </mat-action-list>
 
+    <span class="routes-dialog__tag" style="margin-bottom: 16px">Fim</span>
+    <mat-divider></mat-divider>
   </div>
 
   <div class="routes-dialog__buttons">
