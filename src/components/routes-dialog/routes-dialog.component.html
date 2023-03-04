@@ -67,6 +67,11 @@
   </div>
 
   <div class="routes-dialog__buttons">
+    <button *ngIf="isDeleteEnabled()" mat-stroked-button color="warn" class="routes-dialog__button-delete"
+            type="button"
+            (click)="delete()">
+      Deletar
+    </button>
     <button mat-stroked-button color="primary" class="routes-dialog__button" type="button"(click)="close()">
       Cancelar
     </button>

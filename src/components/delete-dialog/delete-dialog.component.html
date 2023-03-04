@@ -1,0 +1,13 @@
+<form #deleteForm="ngForm" class="delete-dialog" (ngSubmit)="deleteForm.valid && onSubmit()">
+  <h3 class="delete-dialog__title">Você tem certeza que deseja prosseguir com a deleção?</h3>
+
+  <div class="delete-dialog__buttons">
+    <button mat-stroked-button color="primary" type="button" class="delete-dialog__button" (click)="close()">
+      Cancelar
+    </button>
+    <button mat-raised-button color="primary" class="delete-dialog__button">
+      Prosseguir
+    </button>
+  </div>
+</form>
+

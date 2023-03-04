@@ -27,6 +27,7 @@ import {StudentsSelectDialogComponent} from "../components/students-select-dialo
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ShiftPipe} from "../pipe/shift.pipe";
+import {DeleteDialogComponent} from "../components/delete-dialog/delete-dialog.component";
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {ShiftPipe} from "../pipe/shift.pipe";
     StudentsDialogComponent,
     StudentsSelectDialogComponent,
     RoutesDialogComponent,
-    ShiftPipe
+    ShiftPipe,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,

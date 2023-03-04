@@ -1,4 +1,4 @@
-<form #studentFrom="ngForm" class="students-dialog" (ngSubmit)="studentFrom.valid && onSubmit()">
+<form #studentForm="ngForm" class="students-dialog" (ngSubmit)="studentForm.valid && onSubmit()">
   <h2 class="students-dialog__title">Informações do estudante</h2>
 
   <div class="students-dialog__body">
@@ -78,6 +78,11 @@
   </div>
 
   <div class="students-dialog__buttons">
+    <button *ngIf="isDeleteEnabled()" mat-stroked-button color="warn" class="students-dialog__button-delete"
+            type="button"
+            (click)="delete()">
+      Deletar
+    </button>
     <button mat-stroked-button color="primary" type="button" class="students-dialog__button" (click)="close()">
       Cancelar
     </button>

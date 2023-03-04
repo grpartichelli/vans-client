@@ -21,15 +21,7 @@ export class RoutesComponent {
       .then(it => this.routes = it)
   }
 
-  public onRouteClicked(route: RouteModel) {
-    this.openEditDialog(route)
-  }
-
   public openEditDialog(route: RouteModel = new RouteModel()) {
-
-    if (route.id === "") {
-      route.id = this.routes.length.toString();
-    }
     const dialogRef = this.dialog.open(RoutesDialogComponent, {
       panelClass: 'custom-dialog-container',
       maxWidth: '100vw',

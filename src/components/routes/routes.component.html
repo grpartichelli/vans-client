@@ -2,7 +2,7 @@
   <mat-action-list #route class="routes__list">
 
     <mat-list-item *ngFor="let route of routes" class="routes__item"
-                   (click)="onRouteClicked(route)">
+                   (click)="openEditDialog(route)">
       <mat-icon >airport_shuttle</mat-icon>
       <div class="routes__item-container">
         <div class="routes__item-text">{{route.name}}</div>

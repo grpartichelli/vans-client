@@ -40,6 +40,10 @@
 
   &__button {
     margin-left: 24px;
+
+    &-delete {
+      margin-right: auto;
+    }
   }
 
   &__buttons {

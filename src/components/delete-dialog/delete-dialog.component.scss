@@ -1,0 +1,18 @@
+.delete-dialog {
+  padding: 24px;
+
+
+  &__title {
+    margin: 0;
+  }
+
+  &__buttons {
+     margin-top: 24px;
+     display: flex;
+     justify-content: flex-end;
+   }
+
+  &__button {
+    margin-left: 24px;
+  }
+}

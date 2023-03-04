@@ -6,6 +6,7 @@ import {ShiftType} from "../../models/shiftType.model";
 import {StudentsSelectDialogComponent} from "../students-select-dialog/students-select-dialog.component";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {StudentModel} from "../../models/student.model";
+import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
 @Component({
   selector: 'app-routes-dialog',
@@ -17,16 +18,32 @@ export class RoutesDialogComponent {
     public dialogRef: MatDialogRef<RoutesDialogComponent, RouteModel>,
     private readonly  routeService: RouteService,
     public dialog: MatDialog) {
-
   }
 
   @Input() route: RouteModel = new RouteModel();
-
   public shifts : Array<ShiftType> = Object.values(ShiftType);
 
 
   public close(): void {
     this.dialogRef.close();
+  }
+
+  public delete(): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      autoFocus: false
+    })
+
+    dialogRef.afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.routeService.delete(this.route).then(() => this.dialogRef.close())
+        }
+      })
+  }
+
+  public isDeleteEnabled(): boolean {
+    return this.route.id !== ''
   }
 
   public onSubmit(): void {
@@ -36,7 +53,7 @@ export class RoutesDialogComponent {
       })
   }
 
-  drop(event: CdkDragDrop<Array<StudentModel>, any>) {
+  public drop(event: CdkDragDrop<Array<StudentModel>, any>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -48,6 +65,7 @@ export class RoutesDialogComponent {
       );
     }
   }
+
 
   public openStudentSelectDialog() {
 

@@ -28,9 +28,6 @@ export class StudentsComponent {
 
   public openEditDialog(student: StudentModel = new StudentModel()) {
 
-    if (student.id === "") {
-      student.id = this.students.length.toString();
-    }
     const dialogRef = this.dialog.open(StudentsDialogComponent, {
       panelClass: 'custom-dialog-container',
       maxWidth: '100vw',

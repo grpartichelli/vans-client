@@ -1,9 +1,10 @@
 import {Component, Input} from '@angular/core';
 import {StudentModel} from "../../models/student.model";
 import {ShiftType} from "../../models/shiftType.model";
-import {MatDialogRef} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {DirectionType} from "../../models/directionType.model";
 import {StudentService} from "../../service/student.service";
+import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 
 @Component({
   selector: 'app-students-dialog',
@@ -14,6 +15,7 @@ export class StudentsDialogComponent {
 
 
   constructor(public dialogRef: MatDialogRef<StudentsDialogComponent, StudentModel>,
+              private readonly dialog: MatDialog,
               private readonly  studentService: StudentService) {
   }
 
@@ -36,6 +38,24 @@ export class StudentsDialogComponent {
 
   public close(): void {
     this.dialogRef.close();
+  }
+
+  public isDeleteEnabled(): boolean {
+    return this.student.id !== '';
+  }
+
+  public delete(): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      autoFocus: false
+    })
+
+    dialogRef.afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.studentService.delete(this.student).then(() => this.dialogRef.close())
+        }
+      })
   }
 
   public onSubmit(): void {
