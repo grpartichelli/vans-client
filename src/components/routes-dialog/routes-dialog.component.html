@@ -22,6 +22,19 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-form-field class="route-dialog__field--double">
+      <mat-label>Direção</mat-label>
+      <mat-select [(ngModel)]="route.direction" name="direction">
+        <mat-option
+          *ngFor="let direction of directions"
+          [value]="direction"
+
+        >
+          {{direction | direction}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <h2>Rota</h2>
 
     <button mat-raised-button color="primary" type="button" class="routes-dialog__body-button"

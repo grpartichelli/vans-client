@@ -16,6 +16,7 @@
 
   box-sizing: border-box;
 
+
   &__title {
     padding-inline: 24px;
   }
@@ -27,6 +28,7 @@
   }
 
   &__list {
+    margin-top: 8px;
     padding-top: 0;
   }
 

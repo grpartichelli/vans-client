@@ -1,8 +1,12 @@
 <div class="students-select-dialog">
 
-  <h2 class="students-select-dialog__title">Selecione os estudantes da rota</h2>
+  <h2 class="students-select-dialog__title" >Selecione os estudantes da rota</h2>
+
 
   <div class="students-select-dialog__body">
+    <span class="students-select-dialog__selected" *ngIf="isSelectionValid">Selecionados ({{selected}}/{{capacity}})</span>
+    <span class="students-select-dialog__selected" style="color: red"*ngIf="!isSelectionValid">Selecionados ({{selected}}/{{capacity}})</span>
+
     <mat-action-list #student class="students-select-dialog__list">
       <mat-divider></mat-divider>
 
@@ -21,7 +25,7 @@
     <button mat-stroked-button color="primary" class="students-select-dialog__button" (click)="close()">
       Cancelar
     </button>
-    <button mat-raised-button color="primary" class="students-select-dialog__button" (click)="onSubmit()">
+    <button [disabled]="!isSelectionValid" mat-raised-button color="primary" class="students-select-dialog__button" (click)="onSubmit()">
       Salvar
     </button>
   </div>

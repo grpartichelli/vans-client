@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'students', component: StudentsComponent, canActivate: [AuthGuardService]},
   { path: 'routes', component: RoutesComponent, canActivate: [AuthGuardService]},
   { path: 'play/:id', component: RoutesPlayComponent, canActivate: [AuthGuardService]},
-  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
   { path: '**', redirectTo: 'routes', pathMatch: 'full' },
 ];
 

@@ -7,6 +7,7 @@ import {StudentsSelectDialogComponent} from "../students-select-dialog/students-
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {StudentModel} from "../../models/student.model";
 import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
+import {DirectionType} from "../../models/directionType.model";
 
 @Component({
   selector: 'app-routes-dialog',
@@ -18,10 +19,13 @@ export class RoutesDialogComponent {
     public dialogRef: MatDialogRef<RoutesDialogComponent, RouteModel>,
     private readonly  routeService: RouteService,
     public dialog: MatDialog) {
+    this.openStudentSelectDialog()
   }
 
   @Input() route: RouteModel = new RouteModel();
   public shifts : Array<ShiftType> = Object.values(ShiftType);
+  public directions : Array<DirectionType> = Object.values(DirectionType);
+
 
 
   public close(): void {

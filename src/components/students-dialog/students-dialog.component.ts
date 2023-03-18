@@ -22,18 +22,7 @@ export class StudentsDialogComponent {
   @Input() student: StudentModel = new StudentModel();
   public shifts : Array<ShiftType> = Object.values(ShiftType);
 
-  public directions = [
-    {
-      key: DirectionType.BOTH,
-      view: "Ida e volta"
-    }, {
-      key: DirectionType.TO,
-      view: "Somente ida"
-    }, {
-      key: DirectionType.BACK,
-      view: "Somenta volta"
-    },
-  ];
+  public directions : Array<DirectionType> = Object.values(DirectionType);
 
 
   public close(): void {

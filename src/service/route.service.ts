@@ -47,10 +47,8 @@ export class RouteService {
     let routes = this.localStorageService.getData<Array<RouteModel>>("routes") ?? []
     let user = this.localStorageService.getData<UserModel>("user") ?? new UserModel("", "");
 
-    routes
+    return Promise.resolve(routes
       .filter(it => it.username === user.username)
-      .sort((one, two) => (one.name > two.name ? 1 : -1))
-
-    return Promise.resolve(routes);
+      .sort((one, two) => (one.name > two.name ? 1 : -1)))
   }
 }

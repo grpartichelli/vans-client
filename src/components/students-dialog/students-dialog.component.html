@@ -38,14 +38,14 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field class="students-dialog__field--double">
-        <mat-label>Horário</mat-label>
+        <mat-label>Direção</mat-label>
         <mat-select [(ngModel)]="student.direction" name="direction">
           <mat-option
             *ngFor="let direction of directions"
-            [value]="direction.key"
+            [value]="direction"
 
           >
-            {{direction.view}}
+            {{direction | direction}}
           </mat-option>
         </mat-select>
       </mat-form-field>

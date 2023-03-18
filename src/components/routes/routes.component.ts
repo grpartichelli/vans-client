@@ -15,6 +15,7 @@ export class RoutesComponent {
 
   constructor(public dialog: MatDialog, public routeService: RouteService, public router: Router) {
     this.loadList()
+    this.openEditDialog(new Event("test"))
   }
 
   public loadList(): void {

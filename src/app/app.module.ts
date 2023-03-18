@@ -30,6 +30,7 @@ import {ShiftPipe} from "../pipe/shift.pipe";
 import {DeleteDialogComponent} from "../components/delete-dialog/delete-dialog.component";
 import {RoutesPlayComponent} from "../components/routes-play/routes-play.component";
 import {ProfileComponent} from "../components/profile/profile.component";
+import {DirectionPipe} from "../pipe/direction.pipe";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {ProfileComponent} from "../components/profile/profile.component";
     ShiftPipe,
     DeleteDialogComponent,
     RoutesPlayComponent,
-    ProfileComponent
+    ProfileComponent,
+    DirectionPipe
   ],
   imports: [
     BrowserModule,

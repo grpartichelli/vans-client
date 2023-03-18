@@ -48,10 +48,8 @@ export class StudentService {
     let students = this.localStorageService.getData<Array<StudentModel>>("students") ?? []
     let user = this.localStorageService.getData<UserModel>("user") ?? new UserModel("", "");
 
-    students
+    return Promise.resolve(students
       .filter(it => it.username === user.username)
-      .sort((one, two) => (one.name > two.name ? 1 : -1))
-
-    return Promise.resolve(students);
+      .sort((one, two) => (one.name > two.name ? 1 : -1)))
   }
 }

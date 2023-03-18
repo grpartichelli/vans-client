@@ -12,11 +12,12 @@ export class UserService {
   public login(user: UserModel): Promise<any> {
     let users = this.localStorageService.getData<Array<UserModel>>("users") ?? [];
 
-    if (!users.some(it => it.username === user.username && it.password === user.password)) {
+    let loginUser = users.find(it => it.username === user.username && it.password === user.password)
+    if (!loginUser) {
       return Promise.reject();
     }
 
-    this.localStorageService.saveData("user", user);
+    this.localStorageService.saveData("user", loginUser);
     return Promise.resolve();
   }
 
@@ -46,6 +47,7 @@ export class UserService {
       newUsers.push(user)
 
       this.localStorageService.saveData("users", newUsers);
+      console.log(newUsers)
       this.localStorageService.saveData("user", user);
       return Promise.resolve();
   }
