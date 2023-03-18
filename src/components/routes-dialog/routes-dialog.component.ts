@@ -23,7 +23,7 @@ export class RoutesDialogComponent {
 
   @Input() route: RouteModel = new RouteModel();
   public shifts : Array<ShiftType> = Object.values(ShiftType);
-  public directions : Array<DirectionType> = Object.values(DirectionType);
+  public directions : Array<DirectionType> = Object.values(DirectionType).filter(it => it !== DirectionType.BOTH)
 
 
   public close(): void {
