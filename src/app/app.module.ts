@@ -31,6 +31,7 @@ import {DeleteDialogComponent} from "../components/delete-dialog/delete-dialog.c
 import {RoutesPlayComponent} from "../components/routes-play/routes-play.component";
 import {ProfileComponent} from "../components/profile/profile.component";
 import {DirectionPipe} from "../pipe/direction.pipe";
+import {RouteNamePipe} from "../pipe/route-name.pipe";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {DirectionPipe} from "../pipe/direction.pipe";
     DeleteDialogComponent,
     RoutesPlayComponent,
     ProfileComponent,
-    DirectionPipe
+    DirectionPipe,
+    RouteNamePipe
   ],
   imports: [
     BrowserModule,

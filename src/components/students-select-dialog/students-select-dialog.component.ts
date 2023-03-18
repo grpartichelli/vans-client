@@ -17,7 +17,7 @@ export class StudentsSelectDialogComponent {
 
   public studentsSelected: Array<StudentSelect> = [];
   public capacity = new UserModel("", "").vanCapacity;
-  public selected = this.studentsSelected.filter(it => it.selected).length;
+  public selected = 0
   public isSelectionValid = this.selected <= this.capacity;
 
   constructor(public dialogRef: MatDialogRef<StudentsSelectDialogComponent, RouteModel>,
@@ -42,6 +42,7 @@ export class StudentsSelectDialogComponent {
                 {student, selected: !!this.route.students.find(it => student.id === it.id)}
               )
             )
+            this.selected = this.studentsSelected.filter(it => it.selected).length;
 
           })
       }

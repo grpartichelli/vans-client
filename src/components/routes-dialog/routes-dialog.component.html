@@ -3,23 +3,12 @@
 
   <div class="routes-dialog__body">
     <h2 class="routes-dialog__title">Informações</h2>
-    <mat-form-field class="routes-dialog__field">
-      <input matInput placeholder="Nome" name="name" [(ngModel)]="route.name" type="text"  required>
-      <mat-error>
-        Insira o nome da rota
-      </mat-error>
-    </mat-form-field>
 
-    <mat-form-field class="routes-dialog__field" style="margin-bottom: 0">
-      <mat-label>Turno</mat-label>
-      <mat-select [(ngModel)]="route.shift" name="shift">
-        <mat-option
-          *ngFor="let shift of shifts"
-          [value]="shift"
-        >
-          {{shift | shift}}
-        </mat-option>
-      </mat-select>
+    <mat-form-field class="routes-dialog__field">
+      <input matInput placeholder="Nome da instituição" name="name" [(ngModel)]="route.name" type="text"  required>
+      <mat-error>
+        Insira o nome da instituição
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="route-dialog__field--double">
@@ -35,6 +24,18 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-form-field class="routes-dialog__field" style="margin-bottom: 0">
+      <mat-label>Turno</mat-label>
+      <mat-select [(ngModel)]="route.shift" name="shift">
+        <mat-option
+          *ngFor="let shift of shifts"
+          [value]="shift"
+        >
+          {{shift | shift}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <h2>Rota</h2>
 
     <button mat-raised-button color="primary" type="button" class="routes-dialog__body-button"
@@ -44,7 +45,7 @@
     </button>
 
     <mat-divider></mat-divider>
-    <span class="routes-dialog__tag">Início</span>
+    <span  class="routes-dialog__tag">{{startName()}}</span>
 
     <mat-action-list #student class="routes-dialog__list"
                      cdkDropList
@@ -75,7 +76,7 @@
       </mat-list-item>
     </mat-action-list>
 
-    <span class="routes-dialog__tag">Fim</span>
+    <span class="routes-dialog__tag">{{endName()}}</span>
     <mat-divider></mat-divider>
   </div>
 

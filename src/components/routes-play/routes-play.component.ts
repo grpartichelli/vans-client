@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RouteService} from "../../service/route.service";
 import {RouteModel} from "../../models/route.model";
-import {StudentModel} from "../../models/student.model";
+import {DirectionType} from "../../models/directionType.model";
 
 @Component({
   selector: 'app-routes-play',
@@ -12,9 +12,10 @@ import {StudentModel} from "../../models/student.model";
 export class RoutesPlayComponent implements OnInit{
 
   public route = new RouteModel();
-  public studentIndex = 0;
-  public student = new StudentModel();
   public hasFinished = false;
+  public steps : Array<Step> = []
+  public step = new Step("", "", null, false)
+  public stepIndex = 0
 
 
   constructor(private readonly activatedRoute: ActivatedRoute,
@@ -27,31 +28,44 @@ export class RoutesPlayComponent implements OnInit{
         .then(routes => routes.find(it => it.id === params['id']) || new RouteModel())
         .then(route => {
           this.route = route;
-          this.hasFinished = this.route.students.length === 0;
+
+          if (this.route.direction === DirectionType.BACK) {
+            this.steps.push(new Step(this.route.name, "Destino inicial", null, false))
+          }
+
+          this.route.students.forEach(
+            (student) => this.steps.push(new Step(student.address, "Destino de " + student.name, student.phone, true))
+          )
+
+          if (this.route.direction === DirectionType.TO) {
+            this.steps.push(new Step(this.route.name, "Destino final", null, false))
+          }
+
+          this.hasFinished = this.steps.length === 0;
           this.updateCurrentStudent()
         })
     )
   }
 
   updateCurrentStudent() {
-    if (this.studentIndex < this.route.students.length) {
-      this.student = this.route.students[this.studentIndex]
+    if (this.stepIndex < this.steps.length) {
+      this.step = this.steps[this.stepIndex]
     }
   }
 
   isBackDisabled() : boolean {
-    return this.studentIndex === 0
+    return this.stepIndex === 0
   }
 
   goBack() {
-    this.studentIndex -= 1;
+    this.stepIndex -= 1;
     this.hasFinished = false;
     this.updateCurrentStudent()
   }
 
   goForward() {
-    this.studentIndex += 1;
-    this.hasFinished = this.route.students.length === this.studentIndex;
+    this.stepIndex += 1;
+    this.hasFinished = this.steps.length === this.stepIndex;
 
     if (this.hasFinished) {
       return;
@@ -63,5 +77,15 @@ export class RoutesPlayComponent implements OnInit{
   goToRoutes() {
     this.router.navigate(['routes']).then()
   }
+
+}
+
+export class Step {
+  constructor(
+    public readonly address: string,
+    public readonly description: string,
+    public readonly phone: string | null,
+    public readonly isStudent: boolean,
+  ) {}
 
 }

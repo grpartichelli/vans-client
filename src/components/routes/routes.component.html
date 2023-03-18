@@ -7,7 +7,7 @@
       <mat-list-item *ngFor="let route of routes" class="routes__item" (click)="openEditDialog($event, route)">
         <mat-icon class="routes__item-shuttle">airport_shuttle</mat-icon>
         <div class="routes__item-container">
-          <div class="routes__item-text">{{route.name}}</div>
+          <div class="routes__item-text">{{route | routename}}</div>
           <div class="routes__item-sub-text">{{route.shift | shift}}</div>
         </div>
         <button class="routes__item-play-button" mat-icon-button color="accent" (click)="play($event, route)">

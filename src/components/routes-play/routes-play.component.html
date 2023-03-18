@@ -1,5 +1,7 @@
 <div class="routes-play">
-  <h2 class="routes-play__title">{{route.name}}</h2>
+  <h2 class="routes-play__title">{{route | routename}}</h2>
+  <span class="routes-play__subtitle">{{route.shift | shift}}</span>
+
   <div class="routes-play__body" >
 
     <div class="routes-play__info" *ngIf="hasFinished">
@@ -13,15 +15,15 @@
     </div>
 
     <div class="routes-play__info" *ngIf="!hasFinished">
-      <div class="routes-play__info-destination"> {{student.address}}</div>
-      <div class="routes-play__info-name">Destino de {{student.name}}</div>
+      <div class="routes-play__info-destination"> {{step.address}}</div>
+      <div class="routes-play__info-name">{{step.description}}</div>
     </div>
     <div class="routes-play__buttons">
       <button class="routes-play__button" mat-fab (click)="goBack()" [disabled]="isBackDisabled()">
         <mat-icon class="routes-play__button-icon">arrow_back</mat-icon>
       </button>
 
-      <a class="button routes-play__button"  [href]="'tel:' + student.phone" mat-fab color="accent" [disabled]="hasFinished">
+      <a class="button routes-play__button"  [href]="'tel:' + step.phone" mat-fab color="accent" [disabled]="hasFinished">
         <mat-icon class="routes-play__button-icon">phone</mat-icon>
       </a>
       <button class="routes-play__button" mat-fab color="primary" (click)="goForward()" [disabled]="hasFinished">

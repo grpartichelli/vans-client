@@ -1,6 +1,7 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import {Injectable, Pipe, PipeTransform} from '@angular/core';
 import {ShiftType} from "../models/shiftType.model";
 
+@Injectable({providedIn: 'root'})
 @Pipe({
   name: 'shift'
 })

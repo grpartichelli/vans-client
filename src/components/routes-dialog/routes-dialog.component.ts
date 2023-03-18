@@ -19,13 +19,11 @@ export class RoutesDialogComponent {
     public dialogRef: MatDialogRef<RoutesDialogComponent, RouteModel>,
     private readonly  routeService: RouteService,
     public dialog: MatDialog) {
-    this.openStudentSelectDialog()
   }
 
   @Input() route: RouteModel = new RouteModel();
   public shifts : Array<ShiftType> = Object.values(ShiftType);
   public directions : Array<DirectionType> = Object.values(DirectionType);
-
 
 
   public close(): void {
@@ -83,5 +81,14 @@ export class RoutesDialogComponent {
     })
 
     dialogRef.componentInstance.route = this.route;
+  }
+
+  public startName(): string {
+    return this.route.name && this.route.direction === DirectionType.BACK ? this.route.name : "início";
+  }
+
+  public endName(): string {
+    return this.route.name && this.route.direction === DirectionType.TO ? this.route.name : "fim";
+
   }
 }
