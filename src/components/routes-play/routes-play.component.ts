@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {RouteService} from "../../service/route.service";
 import {RouteModel} from "../../models/route.model";
 import {DirectionType} from "../../models/directionType.model";
+import {UserService} from "../../service/user.service";
+import {UserModel} from "../../models/user.model";
 
 @Component({
   selector: 'app-routes-play',
@@ -16,11 +18,13 @@ export class RoutesPlayComponent implements OnInit{
   public steps : Array<Step> = []
   public step = new Step("", "", null, false)
   public stepIndex = 0
+  public user = new UserModel("", "")
 
 
   constructor(private readonly activatedRoute: ActivatedRoute,
               private readonly router: Router,
-              private readonly routeService: RouteService) {}
+              private readonly routeService: RouteService,
+              private readonly userService: UserService) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params =>
@@ -42,12 +46,15 @@ export class RoutesPlayComponent implements OnInit{
           }
 
           this.hasFinished = this.steps.length === 0;
-          this.updateCurrentStudent()
+          this.updateCurrentStep();
         })
+        .then(() =>
+          this.userService.current()
+          .then((user) => this.user = user || new UserModel("", "")))
     )
   }
 
-  updateCurrentStudent() {
+  updateCurrentStep() {
     if (this.stepIndex < this.steps.length) {
       this.step = this.steps[this.stepIndex]
     }
@@ -60,10 +67,12 @@ export class RoutesPlayComponent implements OnInit{
   goBack() {
     this.stepIndex -= 1;
     this.hasFinished = false;
-    this.updateCurrentStudent()
+    this.updateCurrentStep()
+    this.steps[this.stepIndex].isConcluded = false
   }
 
   goForward() {
+    this.steps[this.stepIndex].isConcluded = true
     this.stepIndex += 1;
     this.hasFinished = this.steps.length === this.stepIndex;
 
@@ -71,16 +80,26 @@ export class RoutesPlayComponent implements OnInit{
       return;
     }
 
-    this.updateCurrentStudent();
+    this.updateCurrentStep();
   }
 
   goToRoutes() {
     this.router.navigate(['routes']).then()
   }
 
+  getCapacity(): string {
+    let count = this.steps.filter(it => it.isStudent
+      && ((it.isConcluded && this.route.direction === DirectionType.TO)) || !it.isConcluded && this.route.direction === DirectionType.BACK)
+      .length
+    return "Capacidade da van: "  + count +  "/" + this.user.vanCapacity;
+  }
+
 }
 
 export class Step {
+
+  public isConcluded = false;
+
   constructor(
     public readonly address: string,
     public readonly description: string,
