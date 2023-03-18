@@ -1,6 +1,6 @@
 import {Component, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {LoginService} from "../../service/login.service";
+import {UserService} from "../../service/user.service";
 import {UserModel} from "../../models/user.model";
 
 @Component({
@@ -19,7 +19,7 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private loginService: LoginService,
+    private loginService: UserService,
   ) {}
 
   public onSubmit(): void {

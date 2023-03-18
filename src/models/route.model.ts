@@ -6,4 +6,5 @@ export class RouteModel {
   public id = '';
   public shift = ShiftType.MORNING;
   public students : Array<StudentModel> = [];
+  public username = ''
 }

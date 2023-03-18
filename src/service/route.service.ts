@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {LocalStorageService} from "./local-storage.service";
 import {RouteModel} from "../models/route.model";
+import {UserModel} from "../models/user.model";
 
 
 @Injectable({providedIn: 'root'})
@@ -13,6 +14,9 @@ export class RouteService {
   // mock implementation
   public save(route: RouteModel): Promise<void> {
     let routes = this.localStorageService.getData<Array<RouteModel>>("routes") ?? []
+    let user = this.localStorageService.getData<UserModel>("user") ?? new UserModel("", "");
+
+    route.username = user.username
 
     if (route.id === '') {
         route.id = routes.length.toString();
@@ -41,7 +45,12 @@ export class RouteService {
 
   public find(): Promise<Array<RouteModel>> {
     let routes = this.localStorageService.getData<Array<RouteModel>>("routes") ?? []
-    routes.sort((one, two) => (one.name > two.name ? 1 : -1))
+    let user = this.localStorageService.getData<UserModel>("user") ?? new UserModel("", "");
+
+    routes
+      .filter(it => it.username === user.username)
+      .sort((one, two) => (one.name > two.name ? 1 : -1))
+
     return Promise.resolve(routes);
   }
 }

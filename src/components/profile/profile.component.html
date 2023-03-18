@@ -1,0 +1,61 @@
+<div class="profile">
+  <h2 class="profile__title">Perfil</h2>
+
+  <div class="profile__body" *ngIf="user">
+    <h4 class="profile__subtitle">Email</h4>
+    <div class="profile__info">
+      <span>{{user.username}}</span>
+    </div>
+
+    <h4 class="profile__subtitle">Nome</h4>
+
+    <div class="profile__info" *ngIf="!isEditingName">
+      <span>{{user.name}}</span>
+      <button mat-icon-button (click)="isEditingName = true">
+        <mat-icon>
+          edit
+        </mat-icon>
+      </button>
+    </div>
+
+
+    <div class="profile__info" *ngIf="isEditingName">
+      <mat-form-field class="students-dialog__field">
+        <input matInput name="name" [(ngModel)]="user.name" type="text" required>
+      </mat-form-field>
+
+      <button mat-icon-button (click)="isEditingName = false">
+        <mat-icon>
+          close
+        </mat-icon>
+      </button>
+    </div>
+
+
+    <h4 class="profile__subtitle">Capacidade da Van</h4>
+    <div class="profile__info" *ngIf="!isEditingCapacity">
+      <span>{{user.vanCapacity}}</span>
+      <button mat-icon-button (click)="isEditingCapacity = true">
+        <mat-icon>
+          edit
+        </mat-icon>
+      </button>
+    </div>
+    <div  class="profile__info"*ngIf="isEditingCapacity">
+      <mat-form-field *ngIf="isEditingCapacity" class="students-dialog__field">
+        <input matInput name="name" [(ngModel)]="user.vanCapacity" type="number" required>
+      </mat-form-field>
+
+      <button *ngIf="isEditingCapacity" mat-icon-button (click)="isEditingCapacity = false">
+        <mat-icon>
+          close
+        </mat-icon>
+      </button>
+    </div>
+
+
+  </div>
+  <button mat-fab color="primary" class="profile__add-button" (click)="update()">
+    <mat-icon>check</mat-icon>
+  </button>
+</div>

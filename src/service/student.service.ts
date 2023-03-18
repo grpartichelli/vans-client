@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {LocalStorageService} from "./local-storage.service";
 import {StudentModel} from "../models/student.model";
+import {UserModel} from "../models/user.model";
 
 
 @Injectable({providedIn: 'root'})
@@ -13,6 +14,10 @@ export class StudentService {
   // mock implementation
   public save(student: StudentModel): Promise<void> {
     let students = this.localStorageService.getData<Array<StudentModel>>("students") ?? []
+    let user = this.localStorageService.getData<UserModel>("user") ?? new UserModel("", "");
+
+
+    student.username = user.username;
 
     if (student.id === '') {
       student.id = students.length.toString();
@@ -41,7 +46,12 @@ export class StudentService {
 
   public find(): Promise<Array<StudentModel>> {
     let students = this.localStorageService.getData<Array<StudentModel>>("students") ?? []
-    students.sort((one, two) => (one.name > two.name ? 1 : -1))
+    let user = this.localStorageService.getData<UserModel>("user") ?? new UserModel("", "");
+
+    students
+      .filter(it => it.username === user.username)
+      .sort((one, two) => (one.name > two.name ? 1 : -1))
+
     return Promise.resolve(students);
   }
 }

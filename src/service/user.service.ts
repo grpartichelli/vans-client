@@ -4,7 +4,7 @@ import {LocalStorageService} from "./local-storage.service";
 import {UserModel} from "../models/user.model";
 
 @Injectable({providedIn: 'root'})
-export class LoginService {
+export class UserService {
 
   constructor(private readonly httpClient: HttpClient, private readonly localStorageService: LocalStorageService) {}
 
@@ -33,6 +33,23 @@ export class LoginService {
     this.localStorageService.saveData("user", user);
     return Promise.resolve();
   }
+
+
+  public current(): Promise<UserModel | null> {
+    return Promise.resolve(this.localStorageService.getData<UserModel>("user"));
+  }
+
+  public save(user: UserModel): Promise<any> {
+      let users = this.localStorageService.getData<Array<UserModel>>("users") ?? [];
+
+      let newUsers = users.filter(it => it.username !== user.username);
+      newUsers.push(user)
+
+      this.localStorageService.saveData("users", newUsers);
+      this.localStorageService.saveData("user", user);
+      return Promise.resolve();
+  }
+
 
   // real implementation
 

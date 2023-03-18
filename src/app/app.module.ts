@@ -29,6 +29,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {ShiftPipe} from "../pipe/shift.pipe";
 import {DeleteDialogComponent} from "../components/delete-dialog/delete-dialog.component";
 import {RoutesPlayComponent} from "../components/routes-play/routes-play.component";
+import {ProfileComponent} from "../components/profile/profile.component";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {RoutesPlayComponent} from "../components/routes-play/routes-play.compone
     RoutesDialogComponent,
     ShiftPipe,
     DeleteDialogComponent,
-    RoutesPlayComponent
+    RoutesPlayComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
