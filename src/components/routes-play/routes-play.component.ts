@@ -94,6 +94,12 @@ export class RoutesPlayComponent implements OnInit{
     return "Capacidade da van: "  + count +  "/" + this.user.vanCapacity;
   }
 
+  deleteCurrentStep(): void {
+    this.steps.splice(this.stepIndex, 1)
+    this.stepIndex -= 1;
+    this.goForward()
+  }
+
 }
 
 export class Step {
