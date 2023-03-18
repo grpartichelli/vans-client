@@ -18,6 +18,7 @@
     <div class="routes-play__info" *ngIf="!hasFinished">
       <div class="routes-play__info-destination"> {{step.address}}</div>
       <div class="routes-play__info-name">{{step.description}}</div>
+      <div class="routes-play__info-name">Parada {{this.stepIndex + 1 + " de " + this.steps.length}}</div>
     </div>
     <div class="routes-play__buttons">
       <button class="routes-play__button" mat-fab (click)="goBack()" [disabled]="isBackDisabled()">
