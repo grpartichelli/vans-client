@@ -1,16 +1,22 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RouteService} from "../../service/route.service";
 import {RouteModel} from "../../models/route.model";
 import {DirectionType} from "../../models/directionType.model";
 import {UserService} from "../../service/user.service";
 import {UserModel} from "../../models/user.model";
+import {StudentModel} from "../../models/student.model";
+import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmSelectDialogComponent} from "../confirm-select-dialog/confirm-select-dialog.component";
 
 @Component({
   selector: 'app-routes-play',
   templateUrl: './routes-play.component.html',
-  styleUrls: ['./routes-play.components.scss']
+  styleUrls: ['./routes-play.components.scss'],
+  encapsulation: ViewEncapsulation.None
 })
+
 export class RoutesPlayComponent implements OnInit{
 
   public route = new RouteModel();
@@ -19,12 +25,15 @@ export class RoutesPlayComponent implements OnInit{
   public step = new Step("", "", null, false)
   public stepIndex = 0
   public user = new UserModel("", "")
+  public hasConfirmedStudents = false
+  public studentsSelect: Array<StudentSelect> = []
 
 
   constructor(private readonly activatedRoute: ActivatedRoute,
               private readonly router: Router,
               private readonly routeService: RouteService,
-              private readonly userService: UserService) {}
+              private readonly userService: UserService,
+              private readonly dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params =>
@@ -32,6 +41,12 @@ export class RoutesPlayComponent implements OnInit{
         .then(routes => routes.find(it => it.id === params['id']) || new RouteModel())
         .then(route => {
           this.route = route;
+
+          this.hasConfirmedStudents = this.route.direction !== DirectionType.BACK || this.route.students.length === 0
+          this.route.students.forEach(student => this.studentsSelect.push(
+              {student, selected: false}
+            )
+          )
 
           if (this.route.direction === DirectionType.BACK) {
             this.steps.push(new Step(this.route.name, "Destino inicial", null, false))
@@ -100,7 +115,40 @@ export class RoutesPlayComponent implements OnInit{
     this.goForward()
   }
 
+  onStudentClick(studentSelect: StudentSelect): void {
+    studentSelect.selected = !studentSelect.selected;
+  }
+
+  confirmStudents(): void {
+
+    if (!this.studentsSelect.some(it => !it.selected)) {
+      this.hasConfirmedStudents = true;
+
+      return;
+    }
+
+    const dialogRef = this.dialog.open(ConfirmSelectDialogComponent, {
+      panelClass: 'custom-dialog-container',
+      autoFocus: false
+    })
+
+    dialogRef.afterClosed()
+      .subscribe((result) => {
+        if (result) {
+          this.steps = this.steps.filter(it => !it.isStudent
+            || !this.studentsSelect.some(x => !x.selected && (x.student.address === it.address || "Destino de " + x.student.name === it.description)))
+
+          this.hasConfirmedStudents = true;
+        }
+      })
+  }
 }
+
+type StudentSelect = {
+  student: StudentModel,
+  selected: boolean
+}
+
 
 export class Step {
 

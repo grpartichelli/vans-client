@@ -32,6 +32,7 @@ import {RoutesPlayComponent} from "../components/routes-play/routes-play.compone
 import {ProfileComponent} from "../components/profile/profile.component";
 import {DirectionPipe} from "../pipe/direction.pipe";
 import {RouteNamePipe} from "../pipe/route-name.pipe";
+import {ConfirmSelectDialogComponent} from "../components/confirm-select-dialog/confirm-select-dialog.component";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {RouteNamePipe} from "../pipe/route-name.pipe";
     RoutesPlayComponent,
     ProfileComponent,
     DirectionPipe,
-    RouteNamePipe
+    RouteNamePipe,
+    ConfirmSelectDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,10 @@
 <div class="routes-play">
   <h2 class="routes-play__title">{{route | routename}}</h2>
-  <span class="routes-play__subtitle">{{getCapacity()}}</span>
+  <span class="routes-play__subtitle" *ngIf="hasConfirmedStudents">{{getCapacity()}}</span>
+  <span *ngIf="!hasConfirmedStudents" style="margin-block: 12px">Confirme a presença dos estudantes:</span>
 
 
-  <div class="routes-play__body" >
+  <div class="routes-play__body" *ngIf="hasConfirmedStudents">
 
     <div class="routes-play__info" *ngIf="hasFinished">
       <div class="routes-play__info-complete">Rota concluída!
@@ -21,11 +22,12 @@
       <div class="routes-play__info-name">Parada {{this.stepIndex + 1 + " de " + this.steps.length}}</div>
     </div>
     <div class="routes-play__buttons">
-      <button class="routes-play__button"  mat-fab (click)="goBack()" [disabled]="isBackDisabled()">
+      <button class="routes-play__button" mat-fab (click)="goBack()" [disabled]="isBackDisabled()">
         <mat-icon class="routes-play__button-icon">arrow_back</mat-icon>
       </button>
 
-      <a class="button routes-play__button"  [matMenuTriggerFor]="menu"  mat-fab color="accent" [disabled]="hasFinished || !step.isStudent">
+      <a class="button routes-play__button" [matMenuTriggerFor]="menu" mat-fab color="accent"
+         [disabled]="hasFinished || !step.isStudent">
         <mat-icon class="routes-play__button-icon">more_horiz</mat-icon>
       </a>
 
@@ -35,11 +37,32 @@
     </div>
   </div>
 
+
+  <!--  Student confirmation  -->
+  <div class="routes-play__body-confirm-students" *ngIf="!hasConfirmedStudents">
+
+    <mat-action-list #student class="routes-play__list">
+      <mat-divider></mat-divider>
+
+      <mat-list-item *ngFor="let studentSelect of studentsSelect" class="routes-play__item" (click)="onStudentClick(studentSelect)">
+        <mat-checkbox class="routes-play__checkbox" [ngModel]="studentSelect.selected" [disabled]="true"></mat-checkbox>
+        <div style="display: flex; flex-direction: column">
+          <div class="routes-play__item-text">{{studentSelect.student.name}}</div>
+          <div class="routes-play__item-sub-text">{{studentSelect.student.address}}</div>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-action-list>
+  </div>
+
+  <button *ngIf="!hasConfirmedStudents" mat-fab color="primary" class="routes-play__add-button" (click)="confirmStudents()">
+    <mat-icon>check</mat-icon>
+  </button>
 </div>
 
 <mat-menu #menu="matMenu" yPosition="above">
-  <a class="button"  mat-menu-item [href]="'tel:' + step.phone">
-    <mat-icon >phone</mat-icon>
+  <a class="button" mat-menu-item [href]="'tel:' + step.phone">
+    <mat-icon>phone</mat-icon>
     <span>Chamar responsável</span>
   </a>
   <button mat-menu-item (click)="deleteCurrentStep()">

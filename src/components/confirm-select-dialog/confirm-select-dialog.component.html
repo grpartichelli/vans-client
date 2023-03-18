@@ -1,0 +1,14 @@
+<form #deleteForm="ngForm" class="delete-dialog" (ngSubmit)="deleteForm.valid && onSubmit()">
+  <h3 class="delete-dialog__title">Deseja prosseguir sem todos os estudantes?</h3>
+  <div style="margin-top: 16px">As paradas destes estudantes serão ignoradas.</div>
+
+  <div class="delete-dialog__buttons">
+    <button mat-stroked-button color="primary" type="button" class="delete-dialog__button" (click)="close()">
+      Cancelar
+    </button>
+    <button mat-raised-button color="warn" class="delete-dialog__button">
+      Prosseguir
+    </button>
+  </div>
+</form>
+
