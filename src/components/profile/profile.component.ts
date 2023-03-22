@@ -26,7 +26,7 @@ export class ProfileComponent {
   }
 
   public update(): void {
-    this.userService.save(this.user ?? new UserModel("", ""))
+    this.userService.update(this.user ?? new UserModel("", ""))
       .then(() => {
         this.isEditingCapacity = false;
         this.isEditingName = false;

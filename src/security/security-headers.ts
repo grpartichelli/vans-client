@@ -12,10 +12,8 @@ export class SecurityHeaders {
     const user = this.localStorageService.getData<UserModel>("user");
 
     return {
-      headers: {
         username: user?.username ?? '',
         password: user?.password ?? ''
       }
-    }
   }
 }

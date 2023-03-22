@@ -3,6 +3,7 @@ export class UserModel {
 
   public name = ''
   public vanCapacity = 15;
+  public _id = ''
 
   constructor(public readonly username: string, public readonly password: string) {
     this.name = username.substring(0, username.indexOf("@"))
