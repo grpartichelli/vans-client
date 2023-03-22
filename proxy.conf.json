@@ -1,0 +1,7 @@
+{
+  "/*": {
+    "target": "https://vans-flask.vercel.app",
+    "secure": true,
+    "changeOrigin": true
+  }
+}

@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {LocalStorageService} from "./local-storage.service";
 import {UserModel} from "../models/user.model";
+import {environment} from "../environments/environment.prod";
 
 @Injectable({providedIn: 'root'})
 export class UserService {
@@ -21,19 +22,19 @@ export class UserService {
     return Promise.resolve();
   }
 
-  public register(user: UserModel): Promise<any> {
-    let users = this.localStorageService.getData<Array<UserModel>>("users") ?? [];
-
-    if (users.some(it => it.username === user.username)) {
-      return Promise.reject();
-    }
-
-    users.push(user)
-    this.localStorageService.saveData("users", users);
-
-    this.localStorageService.saveData("user", user);
-    return Promise.resolve();
-  }
+  // public register(user: UserModel): Promise<any> {
+  //   let users = this.localStorageService.getData<Array<UserModel>>("users") ?? [];
+  //
+  //   if (users.some(it => it.username === user.username)) {
+  //     return Promise.reject();
+  //   }
+  //
+  //   users.push(user)
+  //   this.localStorageService.saveData("users", users);
+  //
+  //   this.localStorageService.saveData("user", user);
+  //   return Promise.resolve();
+  // }
 
 
   public current(): Promise<UserModel | null> {
@@ -64,10 +65,11 @@ export class UserService {
   //     .then(() => this.localStorageService.saveData("user", user))
   // }
   //
-  // public register(user: User): Promise<any> {
-  //   return this.httpClient.post(`${environment.api_url}/api/user`, user, {observe: 'response'}).toPromise()
-  //     .then(() => {
-  //       this.localStorageService.saveData("user", user);
-  //     })
-  // }
+
+  public register(user: UserModel): Promise<any> {
+    return this.httpClient.post(`${environment.api_url}/user`, user, {observe: 'response'}).toPromise()
+      .then(() => {
+        this.localStorageService.saveData("user", user);
+      })
+  }
 }

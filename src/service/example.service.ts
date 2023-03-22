@@ -5,7 +5,7 @@ import {SecurityHeaders} from "../security/security-headers";
 
 @Injectable({providedIn: 'root'})
 export class ExampleService {
-  private readonly url: string = `${environment.api_url}/user`;
+  private readonly url: string = `${environment.api_url}/`;
 
   constructor(private readonly httpClient: HttpClient, private readonly securityHeaders: SecurityHeaders) {
   }
