@@ -48,7 +48,6 @@ export class UserService {
       newUsers.push(user)
 
       this.localStorageService.saveData("users", newUsers);
-      console.log(newUsers)
       this.localStorageService.saveData("user", user);
       return Promise.resolve();
   }
