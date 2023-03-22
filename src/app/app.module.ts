@@ -33,6 +33,7 @@ import {ProfileComponent} from "../components/profile/profile.component";
 import {DirectionPipe} from "../pipe/direction.pipe";
 import {RouteNamePipe} from "../pipe/route-name.pipe";
 import {ConfirmSelectDialogComponent} from "../components/confirm-select-dialog/confirm-select-dialog.component";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import {ConfirmSelectDialogComponent} from "../components/confirm-select-dialog/
     MatListModule,
     MatCheckboxModule,
     DragDropModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

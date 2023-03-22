@@ -66,9 +66,9 @@ export class UserService {
   //
 
   public register(user: UserModel): Promise<any> {
-    return this.httpClient.post(`${environment.api_url}/user`, user, {observe: 'response'}).toPromise()
-      .then(() => {
-        this.localStorageService.saveData("user", user);
-      })
+    return this.httpClient.post(`${environment.api_url}/user`, user, {observe: 'response', responseType: 'text'}).toPromise()
+      .then(() =>
+        this.localStorageService.saveData("user", user)
+      )
   }
 }

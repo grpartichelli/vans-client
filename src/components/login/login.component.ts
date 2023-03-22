@@ -16,11 +16,13 @@ export class LoginComponent {
   public isRegistration = false
   public username = '';
   public password = '';
+  public loading = false;
 
   constructor(
     private router: Router,
-    private loginService: UserService,
-  ) {}
+    private userService: UserService,
+  ) {
+  }
 
   public onSubmit(): void {
     if (this.isRegistration) {
@@ -31,19 +33,28 @@ export class LoginComponent {
   }
 
   public register(): void {
-    this.loginService.register(new UserModel(this.username, this.password))
+    if (this.loading) {
+      return;
+    }
+
+    this.loading = true;
+    this.userService.register(new UserModel(this.username, this.password))
       .then(() => {
+        console.log("what")
         this.registrationValid = true;
         this.router.navigate(['students']).then();
+        this.loading = false;
       })
       .catch(() => {
+          console.log("what2")
           this.registrationValid = false;
+          this.loading = false
         }
       )
   }
 
   public login(): void {
-    this.loginService.login(new UserModel(this.username, this.password))
+    this.userService.login(new UserModel(this.username, this.password))
       .then(() => {
         this.router.navigate(['students']).then();
         this.loginValid = true

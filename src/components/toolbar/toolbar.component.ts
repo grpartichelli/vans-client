@@ -18,4 +18,12 @@ export class ToolbarComponent {
       this.router.navigate(['/login'])
         .then(() => this.localStorageService.removeData("user"))
   }
+
+  public refresh(): void {
+    if (this.isLogin) {
+      window.location.reload();
+    } else {
+      this.router.navigate(['/']).then()
+    }
+  }
 }
