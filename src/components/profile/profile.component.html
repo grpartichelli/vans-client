@@ -52,10 +52,9 @@
         </mat-icon>
       </button>
     </div>
-
-
   </div>
   <button mat-fab color="primary" class="profile__add-button" (click)="update()">
-    <mat-icon>check</mat-icon>
+    <mat-icon *ngIf="!loading">check</mat-icon>
+    <mat-icon *ngIf="loading"><mat-spinner color="accent" diameter="20"></mat-spinner></mat-icon>
   </button>
 </div>

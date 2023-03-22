@@ -17,10 +17,9 @@ export class UserService {
   }
 
   public update(user: UserModel): Promise<any> {
-      console.log(user)
       return this.httpClient.post(`${environment.api_url}/user/update`, user, { headers: this.securityHeaders.get(), observe: 'response', responseType: 'text'}, ).toPromise()
         .then(() =>
-          this.localStorageService.saveData("user", user)
+          this.login(user)
         )
   }
 
@@ -30,8 +29,10 @@ export class UserService {
         password: user.password
       }, observe: 'response'})
       .toPromise()
-      .then((account) => {
-        this.localStorageService.saveData("user", account?.body)
+      .then((it) => {
+        let account = (it?.body as UserModel)
+        account.password = user.password;
+        this.localStorageService.saveData("user", account)
         return account
       })
   }
