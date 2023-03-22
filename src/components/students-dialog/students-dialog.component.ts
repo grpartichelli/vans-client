@@ -30,7 +30,7 @@ export class StudentsDialogComponent {
   }
 
   public isDeleteEnabled(): boolean {
-    return this.student.id !== '';
+    return this.student._id !== '';
   }
 
   public delete(): void {

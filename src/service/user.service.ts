@@ -39,7 +39,7 @@ export class UserService {
 
   public register(user: UserModel): Promise<any> {
     return this.httpClient.post(`${environment.api_url}/user`,
-      {username: user.username, password: user.password, vanCapacity: user.vanCapacity, name: user.name},
+      user,
       {observe: 'response', responseType: 'text'}
     ).toPromise()
       .then(() =>

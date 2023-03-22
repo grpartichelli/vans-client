@@ -1,55 +1,45 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {LocalStorageService} from "./local-storage.service";
 import {StudentModel} from "../models/student.model";
-import {UserModel} from "../models/user.model";
+import {environment} from "../environments/environment.prod";
+import {SecurityHeaders} from "../security/security-headers";
 
 
 @Injectable({providedIn: 'root'})
 export class StudentService {
 
-  constructor(private readonly httpClient: HttpClient, private readonly localStorageService: LocalStorageService) {
+  constructor(private readonly httpClient: HttpClient, private readonly securityHeaders: SecurityHeaders) {
   }
 
-  // mock implementation
   public save(student: StudentModel): Promise<void> {
-    let students = this.localStorageService.getData<Array<StudentModel>>("students") ?? []
-    let user = this.localStorageService.getData<UserModel>("user") ?? new UserModel("", "");
-
-
-    student.username = user.username;
-
-    if (student.id === '') {
-      student.id = students.length.toString();
+    if (!student._id) {
+      return this.httpClient.post(`${environment.api_url}/student/new`,
+        student,
+        {headers: this.securityHeaders.get(), responseType: 'text'}).toPromise()
+        .then();
     }
 
-    let newStudents = students.filter(it => it.id !== student.id);
-    newStudents.push(student);
-    this.localStorageService.saveData("students", newStudents);
-    return Promise.resolve();
+    return this.httpClient.post(`${environment.api_url}/student/update`,
+      student,
+      {headers: this.securityHeaders.get(), responseType: 'text'}).toPromise()
+      .then();
   }
 
   public delete(student: StudentModel): Promise<void> {
-    let students = this.localStorageService.getData<Array<StudentModel>>("students") ?? []
-
-    let i = 0;
-    let newStudents = students.filter(it => it.id !== student.id)
-      .map(student => {
-        student.id = i.toString()
-        i += 1;
-        return student;
-      })
-
-    this.localStorageService.saveData("students", newStudents);
-    return Promise.resolve();
+    return this.httpClient.delete(`${environment.api_url}/student/delete`,
+      {headers: this.securityHeaders.get(), body: student, responseType: 'text'})
+      .toPromise()
+      .then()
   }
 
   public find(): Promise<Array<StudentModel>> {
-    let students = this.localStorageService.getData<Array<StudentModel>>("students") ?? []
-    let user = this.localStorageService.getData<UserModel>("user") ?? new UserModel("", "");
-
-    return Promise.resolve(students
-      .filter(it => it.username === user.username)
-      .sort((one, two) => (one.name > two.name ? 1 : -1)))
+    return this.httpClient.get<Array<StudentModel>>(`${environment.api_url}/student/`, {headers: this.securityHeaders.get()})
+      .toPromise()
+      .then(it => {
+        if (it == null) {
+          return []
+        }
+        return it;
+      })
   }
 }

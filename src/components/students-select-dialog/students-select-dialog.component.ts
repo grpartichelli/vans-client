@@ -39,7 +39,7 @@ export class StudentsSelectDialogComponent {
         this.studentService.find()
           .then(students => {
             students.forEach(student=> this.studentsSelected.push(
-                {student, selected: !!this.route.students.find(it => student.id === it.id)}
+                {student, selected: !!this.route.students.find(it => student._id === it._id)}
               )
             )
             this.selected = this.studentsSelected.filter(it => it.selected).length;
