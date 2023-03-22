@@ -31,7 +31,14 @@
 
         <div class="login__actions">
           <a href="/" class="login__forgot-password"  *ngIf="!isRegistration" >Esqueceu sua senha?</a>
-          <button class="login__button" mat-raised-button color="primary" [disabled]="loading"  *ngIf="!isRegistration">Entrar</button>
+
+          <button class="login__button"  *ngIf="!isRegistration" mat-raised-button color="primary">
+            <span *ngIf="!loading">Entrar </span>
+            <mat-icon *ngIf="loading"><mat-spinner color="accent" diameter="20">
+            </mat-spinner></mat-icon>
+          </button>
+
+
           <p class="login__divider" *ngIf="!isRegistration">ou</p>
 
           <button type="button" class="login__button"  *ngIf="!isRegistration" (click)="setIsRegistration(true)" mat-stroked-button color="primary">

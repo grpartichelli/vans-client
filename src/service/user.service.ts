@@ -9,18 +9,7 @@ export class UserService {
 
   constructor(private readonly httpClient: HttpClient, private readonly localStorageService: LocalStorageService) {}
 
-  // mock implementation
-  public login(user: UserModel): Promise<any> {
-    let users = this.localStorageService.getData<Array<UserModel>>("users") ?? [];
 
-    let loginUser = users.find(it => it.username === user.username && it.password === user.password)
-    if (!loginUser) {
-      return Promise.reject();
-    }
-
-    this.localStorageService.saveData("user", loginUser);
-    return Promise.resolve();
-  }
 
   // public register(user: UserModel): Promise<any> {
   //   let users = this.localStorageService.getData<Array<UserModel>>("users") ?? [];
@@ -53,17 +42,15 @@ export class UserService {
   }
 
 
-  // real implementation
+  public login(user: UserModel): Promise<any> {
+    return this.httpClient.post(`${environment.api_url}/login`,null,  {headers: {
+        username: user.username,
+        password: user.password
+      }, observe: 'response'})
+      .toPromise()
+      .then(() => this.localStorageService.saveData("user", user))
+  }
 
-  // public login(user: User): Promise<any> {
-  //   return this.httpClient.post(`${environment.api_url}/api/login`,null,  {headers: {
-  //       username: user.username,
-  //       password: user.password
-  //     }, observe: 'response'})
-  //     .toPromise()
-  //     .then(() => this.localStorageService.saveData("user", user))
-  // }
-  //
 
   public register(user: UserModel): Promise<any> {
     return this.httpClient.post(`${environment.api_url}/user`, user, {observe: 'response', responseType: 'text'}).toPromise()

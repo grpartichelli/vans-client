@@ -40,13 +40,11 @@ export class LoginComponent {
     this.loading = true;
     this.userService.register(new UserModel(this.username, this.password))
       .then(() => {
-        console.log("what")
         this.registrationValid = true;
         this.router.navigate(['students']).then();
         this.loading = false;
       })
       .catch(() => {
-          console.log("what2")
           this.registrationValid = false;
           this.loading = false
         }
@@ -54,13 +52,20 @@ export class LoginComponent {
   }
 
   public login(): void {
+    if (this.loading) {
+      return;
+    }
+
+    this.loading = true;
     this.userService.login(new UserModel(this.username, this.password))
       .then(() => {
         this.router.navigate(['students']).then();
         this.loginValid = true
+        this.loading = false
       })
       .catch(() => {
           this.loginValid = false
+          this.loading = false
         }
       )
   }
