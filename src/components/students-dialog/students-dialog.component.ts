@@ -13,6 +13,8 @@ import {DeleteDialogComponent} from "../delete-dialog/delete-dialog.component";
 })
 export class StudentsDialogComponent {
 
+  loadingSave = false;
+  loadingDelete = false;
 
   constructor(public dialogRef: MatDialogRef<StudentsDialogComponent, StudentModel>,
               private readonly dialog: MatDialog,
@@ -30,10 +32,16 @@ export class StudentsDialogComponent {
   }
 
   public isDeleteEnabled(): boolean {
-    return this.student._id !== '';
+    return !!this.student._id
   }
 
   public delete(): void {
+    if (this.loadingDelete) {
+      return;
+    }
+
+    this.loadingDelete = true;
+
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       panelClass: 'custom-dialog-container',
       autoFocus: false
@@ -42,15 +50,31 @@ export class StudentsDialogComponent {
     dialogRef.afterClosed()
       .subscribe((result) => {
         if (result) {
-          this.studentService.delete(this.student).then(() => this.dialogRef.close())
+          this.studentService.delete(this.student).then(() => {
+            this.loadingDelete = false;
+            this.dialogRef.close()
+          })
+        } else {
+          this.loadingDelete = false;
         }
       })
   }
 
   public onSubmit(): void {
+    if (this.loadingSave) {
+      return;
+    }
+
+    this.loadingSave = true;
     this.studentService.save(this.student)
       .then(() => {
+        this.loadingSave = false
         this.dialogRef.close(this.student)
       })
+      .catch(
+        () => {
+          this.loadingSave = false;
+        }
+      )
   }
 }

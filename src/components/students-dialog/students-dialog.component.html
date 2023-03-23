@@ -80,13 +80,17 @@
     <button *ngIf="isDeleteEnabled()" mat-stroked-button color="warn" class="students-dialog__button-delete"
             type="button"
             (click)="delete()">
-      Deletar
+      <span *ngIf="!loadingDelete">Deletar</span>
+      <mat-icon *ngIf="loadingDelete"><mat-spinner color="accent" diameter="20">
+      </mat-spinner></mat-icon>
     </button>
     <button mat-stroked-button color="primary" type="button" class="students-dialog__button" (click)="close()">
       Cancelar
     </button>
     <button mat-raised-button color="primary" class="students-dialog__button">
-      Salvar
+      <span *ngIf="!loadingSave">Salvar</span>
+      <mat-icon *ngIf="loadingSave"><mat-spinner color="accent" diameter="20">
+      </mat-spinner></mat-icon>
     </button>
   </div>
 </form>

@@ -24,6 +24,8 @@ export class RoutesDialogComponent {
   @Input() route: RouteModel = new RouteModel();
   public shifts : Array<ShiftType> = Object.values(ShiftType);
   public directions : Array<DirectionType> = Object.values(DirectionType).filter(it => it !== DirectionType.BOTH)
+  public loadingDelete = false
+  public loadingSave = false
 
 
   public close(): void {
@@ -31,6 +33,12 @@ export class RoutesDialogComponent {
   }
 
   public delete(): void {
+    if (this.loadingDelete) {
+      return;
+    }
+
+    this.loadingDelete = true
+
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       panelClass: 'custom-dialog-container',
       autoFocus: false
@@ -39,20 +47,32 @@ export class RoutesDialogComponent {
     dialogRef.afterClosed()
       .subscribe((result) => {
         if (result) {
-          this.routeService.delete(this.route).then(() => this.dialogRef.close())
+          this.routeService.delete(this.route).then(() => {{
+            this.dialogRef.close()
+            this.loadingDelete = false
+          }})
+        } else {
+          this.loadingDelete = false
         }
       })
   }
 
   public isDeleteEnabled(): boolean {
-    return this.route.id !== ''
+    return !!this.route._id
   }
 
   public onSubmit(): void {
+    if (this.loadingSave) {
+      return;
+    }
+    this.loadingSave = true;
     this.routeService.save(this.route)
       .then(() => {
         this.dialogRef.close(this.route)
-      })
+        this.loadingSave = false
+      }).catch(() => {
+        this.loadingSave = false
+    })
   }
 
   public drop(event: CdkDragDrop<Array<StudentModel>, any>) {

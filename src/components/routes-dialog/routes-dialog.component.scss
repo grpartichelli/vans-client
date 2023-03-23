@@ -53,7 +53,7 @@
 
   &__body {
     flex: 1;
-    overflow-y: scroll;
+    overflow-y: auto;
     padding-inline: 24px;
     display: flex;
     flex-direction: column;

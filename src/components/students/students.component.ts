@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {StudentsDialogComponent} from "../students-dialog/students-dialog.component";
 import {StudentModel} from "../../models/student.model";
@@ -9,17 +9,32 @@ import {StudentService} from "../../service/student.service";
   templateUrl: './students.component.html',
   styleUrls: ['./students.component.scss']
 })
-export class StudentsComponent {
+export class StudentsComponent implements OnInit {
 
+  public loading = false;
   public students: Array<StudentModel> = [];
 
   constructor(public dialog: MatDialog, public studentService: StudentService) {
+  }
+
+  ngOnInit(): void {
     this.loadList()
+
   }
 
   public loadList(): void {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true;
     this.studentService.find()
-      .then(it => this.students = it)
+      .then(it => {
+        this.students = it
+        this.loading = false
+      })
+      .catch(() =>  {
+        this.loading = false
+      })
   }
 
   public openEditDialog(event: Event, student: StudentModel = new StudentModel()) {

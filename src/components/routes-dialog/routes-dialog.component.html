@@ -5,7 +5,7 @@
     <h2 class="routes-dialog__title">Informações</h2>
 
     <mat-form-field class="routes-dialog__field">
-      <input matInput placeholder="Nome da instituição" name="name" [(ngModel)]="route.name" type="text"  required>
+      <input matInput placeholder="Nome da instituição" name="name" [(ngModel)]="route.name" type="text" required>
       <mat-error>
         Insira o nome da instituição
       </mat-error>
@@ -45,7 +45,7 @@
     </button>
 
     <mat-divider></mat-divider>
-    <span  class="routes-dialog__tag">{{startName()}}</span>
+    <span class="routes-dialog__tag">{{startName()}}</span>
 
     <mat-action-list #student class="routes-dialog__list"
                      cdkDropList
@@ -84,13 +84,21 @@
     <button *ngIf="isDeleteEnabled()" mat-stroked-button color="warn" class="routes-dialog__button-delete"
             type="button"
             (click)="delete()">
-      Deletar
+      <span *ngIf="!loadingDelete">Deletar</span>
+      <mat-icon *ngIf="loadingDelete">
+        <mat-spinner color="accent" diameter="20">
+        </mat-spinner>
+      </mat-icon>
     </button>
-    <button mat-stroked-button color="primary" class="routes-dialog__button" type="button"(click)="close()">
+    <button mat-stroked-button color="primary" class="routes-dialog__button" type="button" (click)="close()">
       Cancelar
     </button>
     <button mat-raised-button color="primary" class="routes-dialog__button">
-      Salvar
+      <span *ngIf="!loadingSave">Salvar</span>
+      <mat-icon *ngIf="loadingSave">
+        <mat-spinner color="accent" diameter="20">
+        </mat-spinner>
+      </mat-icon>
     </button>
   </div>
 </form>

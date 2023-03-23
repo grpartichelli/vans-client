@@ -1,19 +1,25 @@
 <div class="students">
   <h2 class="students__title">Estudantes</h2>
 
-  <div class="students__body">
-  <mat-action-list #student class="students__list">
-    <mat-list-item *ngFor="let student of students" class="students__item"
-    (click)="openEditDialog($event, student)">
-      <mat-icon >person</mat-icon>
-      <div class="students__item-container">
-        <div class="students__item-text">{{student.name}}</div>
-        <div class="students__item-sub-text">{{student.address}}</div>
-      </div>
-      <mat-divider></mat-divider>
-    </mat-list-item>
-  </mat-action-list>
+  <div class="students__body" *ngIf="!loading">
+    <mat-action-list #student class="students__list">
+      <mat-list-item *ngFor="let student of students" class="students__item"
+                     (click)="openEditDialog($event, student)">
+        <mat-icon>person</mat-icon>
+        <div class="students__item-container">
+          <div class="students__item-text">{{student.name}}</div>
+          <div class="students__item-sub-text">{{student.address}}</div>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-action-list>
   </div>
+
+  <div class="students__body" style="display: flex; justify-content: center; align-items: center" *ngIf="loading">
+    <mat-spinner diameter="100"></mat-spinner>
+  </div>
+
+
   <button mat-fab color="primary" class="students__add-button" (click)="openEditDialog($event)">
     <mat-icon>add</mat-icon>
   </button>

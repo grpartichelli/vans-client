@@ -1,10 +1,10 @@
 <div class="routes-play">
-  <h2 class="routes-play__title">{{route | routename}}</h2>
-  <span class="routes-play__subtitle" *ngIf="hasConfirmedStudents">{{getCapacity()}}</span>
-  <span *ngIf="!hasConfirmedStudents" style="margin-block: 12px">Confirme a presença dos estudantes:</span>
+  <h2 class="routes-play__title" *ngIf="!loading">{{route | routename}}</h2>
+  <span class="routes-play__subtitle" *ngIf="hasConfirmedStudents && !loading">{{getCapacity()}}</span>
+  <span *ngIf="!hasConfirmedStudents && !loading" style="margin-block: 12px">Confirme a presença dos estudantes:</span>
 
 
-  <div class="routes-play__body" *ngIf="hasConfirmedStudents">
+  <div class="routes-play__body" *ngIf="hasConfirmedStudents && !loading">
 
     <div class="routes-play__info" *ngIf="hasFinished">
       <div class="routes-play__info-complete">Rota concluída!
@@ -26,20 +26,27 @@
         <mat-icon class="routes-play__button-icon">arrow_back</mat-icon>
       </button>
 
-      <a class="button routes-play__button" [matMenuTriggerFor]="menu" mat-fab color="accent"
-         [disabled]="hasFinished || !step.isStudent">
+      <a class="button routes-play__button" *ngIf="hasFinished || !step.studentId" mat-fab color="accent"
+         [disabled]="true">
         <mat-icon class="routes-play__button-icon">more_horiz</mat-icon>
       </a>
 
-      <button class="routes-play__button" mat-fab color="primary" (click)="goForward()" [disabled]="hasFinished">
+      <a class="button routes-play__button" *ngIf="!(hasFinished || !step.studentId)" [matMenuTriggerFor]="menu" mat-fab color="accent">
+        <mat-icon class="routes-play__button-icon">more_horiz</mat-icon>
+      </a>
+
+      <button class="routes-play__button" mat-fab color="primary" (click)="goForward()" [disabled]="hasFinished" >
         <mat-icon class="routes-play__button-icon">check</mat-icon>
       </button>
     </div>
   </div>
 
+  <div class="routes-play__body" style="display: flex; justify-content: center; align-items: center" *ngIf="loading">
+    <mat-spinner diameter="100"></mat-spinner>
+  </div>
 
   <!--  Student confirmation  -->
-  <div class="routes-play__body-confirm-students" *ngIf="!hasConfirmedStudents">
+  <div class="routes-play__body-confirm-students" *ngIf="!hasConfirmedStudents && !loading">
 
     <mat-action-list #student class="routes-play__list">
       <mat-divider></mat-divider>
@@ -55,13 +62,13 @@
     </mat-action-list>
   </div>
 
-  <button *ngIf="!hasConfirmedStudents" mat-fab color="primary" class="routes-play__add-button" (click)="confirmStudents()">
+  <button *ngIf="!hasConfirmedStudents && !loading" mat-fab color="primary" class="routes-play__add-button" (click)="confirmStudents()">
     <mat-icon>check</mat-icon>
   </button>
 </div>
 
-<mat-menu #menu="matMenu" yPosition="above">
-  <a class="button" mat-menu-item [href]="'tel:' + step.phone">
+<mat-menu #menu="matMenu" yPosition="above" >
+  <a  class="button" mat-menu-item [href]="'tel:' + step.phone">
     <mat-icon>phone</mat-icon>
     <span>Chamar responsável</span>
   </a>

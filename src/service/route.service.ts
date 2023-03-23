@@ -1,54 +1,67 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {LocalStorageService} from "./local-storage.service";
+import {SecurityHeaders} from "../security/security-headers";
+import {environment} from "../environments/environment.prod";
 import {RouteModel} from "../models/route.model";
-import {UserModel} from "../models/user.model";
+import {StudentService} from "./student.service";
 
 
 @Injectable({providedIn: 'root'})
 export class RouteService {
 
-  constructor(private readonly httpClient: HttpClient, private readonly localStorageService: LocalStorageService) {
+  constructor(private readonly httpClient: HttpClient,
+              private readonly securityHeaders: SecurityHeaders,
+              private readonly studentService: StudentService) {
   }
 
-  // mock implementation
   public save(route: RouteModel): Promise<void> {
-    let routes = this.localStorageService.getData<Array<RouteModel>>("routes") ?? []
-    let user = this.localStorageService.getData<UserModel>("user") ?? new UserModel("", "");
-
-    route.username = user.username
-
-    if (route.id === '') {
-        route.id = routes.length.toString();
+    route.studentIds = route.students.filter(it => !!it).map(it => it._id) as Array<string>
+    if (!route._id) {
+      return this.httpClient.post(`${environment.api_url}/route/new`,
+        route,
+        {headers: this.securityHeaders.get(), responseType: 'text'}).toPromise()
+        .then();
     }
 
-    let newRoutes = routes.filter(it => it.id !== route.id);
-    newRoutes.push(route);
-    this.localStorageService.saveData("routes", newRoutes);
-    return Promise.resolve();
+    return this.httpClient.post(`${environment.api_url}/route/update`,
+      route,
+      {headers: this.securityHeaders.get(), responseType: 'text'}).toPromise()
+      .then();
   }
 
-  public delete(route: RouteModel) : Promise<void> {
-    let routes = this.localStorageService.getData<Array<RouteModel>>("routes") ?? []
-
-    let i = 0;
-    let newRoutes = routes.filter(it => it.id !== route.id)
-      .map(route => {
-        route.id = i.toString()
-        i += 1;
-        return route;
-      })
-
-    this.localStorageService.saveData("routes", newRoutes);
-    return Promise.resolve();
+  public delete(route: RouteModel): Promise<void> {
+    return this.httpClient.delete(`${environment.api_url}/route/delete`,
+      {headers: this.securityHeaders.get(), body: route, responseType: 'text'})
+      .toPromise()
+      .then()
   }
 
   public find(): Promise<Array<RouteModel>> {
-    let routes = this.localStorageService.getData<Array<RouteModel>>("routes") ?? []
-    let user = this.localStorageService.getData<UserModel>("user") ?? new UserModel("", "");
+    return this.studentService.find()
+      .then((students) => {
+        let map = new Map();
+        students.forEach(it => map.set(it._id, it));
+        return this.httpClient.get<Array<RouteModel>>(`${environment.api_url}/route/`, {headers: this.securityHeaders.get()})
+          .toPromise()
+          .then(routes => {
+            if (routes == null) {
+              return []
+            }
 
-    return Promise.resolve(routes
-      .filter(it => it.username === user.username)
-      .sort((one, two) => (one.name > two.name ? 1 : -1)))
+            return routes.map(route => {
+              route.students = []
+              route.studentIds.forEach((id) => {
+                if (map.has(id)) {
+                    route.students.push(map.get(id))
+                } else {
+                  const index = route.studentIds.indexOf(id);
+                  route.studentIds.splice(index, 1);
+                }
+              })
+              return route;
+            })
+          })
+      })
   }
+
 }

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {RouteModel} from "../../models/route.model";
 import {RouteService} from "../../service/route.service";
@@ -10,21 +10,35 @@ import {Router} from "@angular/router";
   templateUrl: './routes.component.html',
   styleUrls: ['./routes.component.scss']
 })
-export class RoutesComponent {
+export class RoutesComponent implements OnInit {
   public routes: Array<RouteModel> = [];
+  public loading = false;
 
   constructor(public dialog: MatDialog, public routeService: RouteService, public router: Router) {
+  }
+
+  ngOnInit(): void {
     this.loadList()
   }
 
   public loadList(): void {
+    if (this.loading) {
+      return;
+    }
+    this.loading = true
+
     this.routeService.find()
-      .then(it => this.routes = it)
+      .then(it => {
+        this.routes = it
+        this.loading = false
+      }).catch(() => {
+      this.loading = false
+    })
   }
 
   public play(event: Event, route: RouteModel) {
     event.stopPropagation()
-    this.router.navigate(['play', route.id]).then()
+    this.router.navigate(['play', route._id]).then()
   }
 
   public openEditDialog(event: Event, route: RouteModel = new RouteModel()) {

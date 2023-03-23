@@ -17,30 +17,31 @@ import {ConfirmSelectDialogComponent} from "../confirm-select-dialog/confirm-sel
   encapsulation: ViewEncapsulation.None
 })
 
-export class RoutesPlayComponent implements OnInit{
+export class RoutesPlayComponent implements OnInit {
 
   public route = new RouteModel();
   public hasFinished = false;
-  public steps : Array<Step> = []
-  public step = new Step("", "", null, false)
+  public steps: Array<Step> = []
+  public step = new Step("", "", null, null)
   public stepIndex = 0
   public user = new UserModel("", "")
   public hasConfirmedStudents = false
   public studentsSelect: Array<StudentSelect> = []
+  public loading = true
 
 
   constructor(private readonly activatedRoute: ActivatedRoute,
               private readonly router: Router,
               private readonly routeService: RouteService,
               private readonly userService: UserService,
-              private readonly dialog: MatDialog) {}
+              private readonly dialog: MatDialog) {
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params =>
       this.routeService.find()
-        .then(routes => routes.find(it => it.id === params['id']) || new RouteModel())
-        .then(route => {
-          this.route = route;
+        .then(routes => {
+          this.route = routes.find(it => it._id === params['id']) || new RouteModel()
 
           this.hasConfirmedStudents = this.route.direction !== DirectionType.BACK || this.route.students.length === 0
           this.route.students.forEach(student => this.studentsSelect.push(
@@ -49,23 +50,28 @@ export class RoutesPlayComponent implements OnInit{
           )
 
           if (this.route.direction === DirectionType.BACK) {
-            this.steps.push(new Step(this.route.name, "Destino inicial", null, false))
+            this.steps.push(new Step(this.route.name, "Parada inicial", null, null))
           }
 
           this.route.students.forEach(
-            (student) => this.steps.push(new Step(student.address, "Destino de " + student.name, student.phone, true))
+            (student) => this.steps.push(new Step(student.address, "Parada de " + student.name, student.phone, student._id ?? null))
           )
 
           if (this.route.direction === DirectionType.TO) {
-            this.steps.push(new Step(this.route.name, "Destino final", null, false))
+            this.steps.push(new Step(this.route.name, "Parada final", null, null))
           }
 
           this.hasFinished = this.steps.length === 0;
           this.updateCurrentStep();
-        })
+
+        }).catch(() => this.loading = false)
         .then(() =>
           this.userService.current()
-          .then((user) => this.user = user || new UserModel("", "")))
+            .then((user) => {
+              this.user = user || new UserModel("", "")
+              this.loading = false
+            }).catch(() => this.loading = false))
+        .catch(() => this.loading = false)
     )
   }
 
@@ -75,7 +81,7 @@ export class RoutesPlayComponent implements OnInit{
     }
   }
 
-  isBackDisabled() : boolean {
+  isBackDisabled(): boolean {
     return this.stepIndex === 0
   }
 
@@ -103,10 +109,10 @@ export class RoutesPlayComponent implements OnInit{
   }
 
   getCapacity(): string {
-    let count = this.steps.filter(it => it.isStudent
-      && ((it.isConcluded && this.route.direction === DirectionType.TO)) || !it.isConcluded && this.route.direction === DirectionType.BACK)
+    let count = this.steps.filter(it => !!it.studentId
+      && (((it.isConcluded && this.route.direction === DirectionType.TO)) || (!it.isConcluded && this.route.direction === DirectionType.BACK)))
       .length
-    return "Capacidade da van: "  + count +  "/" + this.user.vanCapacity;
+    return "Capacidade da van: " + count + "/" + this.user.vanCapacity;
   }
 
   deleteCurrentStep(): void {
@@ -135,8 +141,8 @@ export class RoutesPlayComponent implements OnInit{
     dialogRef.afterClosed()
       .subscribe((result) => {
         if (result) {
-          this.steps = this.steps.filter(it => !it.isStudent
-            || !this.studentsSelect.some(x => !x.selected && (x.student.address === it.address || "Destino de " + x.student.name === it.description)))
+          this.steps = this.steps.filter(it => !it.studentId
+            || !this.studentsSelect.some(x => !x.selected && x.student._id === it.studentId))
 
           this.hasConfirmedStudents = true;
         }
@@ -158,7 +164,8 @@ export class Step {
     public readonly address: string,
     public readonly description: string,
     public readonly phone: string | null,
-    public readonly isStudent: boolean,
-  ) {}
+    public readonly studentId: string | null
+  ) {
+  }
 
 }

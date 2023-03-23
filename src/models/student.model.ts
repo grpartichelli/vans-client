@@ -10,6 +10,5 @@ export class StudentModel {
   public paymentAmount = 0;
   public shift = ShiftType.MORNING;
   public direction = DirectionType.BOTH
-  public username = "";
   public _id?: string;
 }

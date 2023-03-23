@@ -16,7 +16,8 @@
           </mat-error>
         </mat-form-field>
         <mat-form-field class="login__field" *ngIf="isRegistration">
-          <input matInput type="password" placeholder="Senha" [(ngModel)]="password" name="password" required minlength="8">
+          <input matInput type="password" placeholder="Senha" [(ngModel)]="password" name="password" required
+                 minlength="8">
           <mat-error>
             Por favor insira uma senha de 8 ou mais caracteres
           </mat-error>
@@ -30,26 +31,28 @@
         </mat-form-field>
 
         <div class="login__actions">
-          <a href="/" class="login__forgot-password"  *ngIf="!isRegistration" >Esqueceu sua senha?</a>
+          <a href="/" class="login__forgot-password" *ngIf="!isRegistration">Esqueceu sua senha?</a>
 
-          <button class="login__button"  *ngIf="!isRegistration" mat-raised-button color="primary">
+          <button class="login__button" *ngIf="!isRegistration" mat-raised-button color="primary">
             <span *ngIf="!loading">Entrar </span>
-            <mat-icon *ngIf="loading"><mat-spinner color="accent" diameter="20">
-            </mat-spinner></mat-icon>
+            <mat-icon *ngIf="loading">
+              <mat-spinner color="accent" diameter="20">
+              </mat-spinner>
+            </mat-icon>
           </button>
-
-
           <p class="login__divider" *ngIf="!isRegistration">ou</p>
 
-          <button type="button" class="login__button"  *ngIf="!isRegistration" (click)="setIsRegistration(true)" mat-stroked-button color="primary">
+          <button type="button" class="login__button" *ngIf="!isRegistration" (click)="setIsRegistration(true)"
+                  mat-stroked-button color="primary">
             Nova conta
           </button>
 
-
-          <button class="login__registration-button"  *ngIf="isRegistration" mat-raised-button color="primary">
+          <button class="login__registration-button" *ngIf="isRegistration" mat-raised-button color="primary">
             <span *ngIf="!loading">Registrar </span>
-            <mat-icon *ngIf="loading"><mat-spinner color="accent" diameter="20">
-            </mat-spinner></mat-icon>
+            <mat-icon *ngIf="loading">
+              <mat-spinner color="accent" diameter="20">
+              </mat-spinner>
+            </mat-icon>
           </button>
 
         </div>
